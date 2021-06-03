@@ -9,24 +9,26 @@ import me.elexation.exxentials.listeners.*;
 import me.elexation.exxentials.miscellaneous.*;
 import me.elexation.exxentials.tabCompleters.*;
 
+import java.util.Objects;
+
 public class Exxentials extends JavaPlugin {
 
-	private  afk afk = new afk();
-	private  msg msg = new msg();
-	private  nickname nick = new nickname();
-	private  spawn spawn = new spawn(this);
-	private  warp warp = new warp(this);
-	private  warps warps = new warps(this);
-	private track track = new track(this);
+	private final afk afk = new afk();
+	private final msg msg = new msg();
+	private final nickname nick = new nickname();
+	private final spawn spawn = new spawn(this);
+	private final warp warp = new warp(this);
+	private final warps warps = new warps(this);
+	private final track track = new track(this);
 
 	@Override
 	public void onEnable() {
-		System.out.println("Exxentials plugin - Elexation");
+		System.out.println("Exxentials version 1.0 - Elexation");
 
 		new nicknameConfigSetup();
 		new configSetup(this);
 
-		setCommandUsages("Usage: " + ChatColor.GOLD);
+		setCommandUsages("Usage: " + ChatColor.GOLD + "/<command> ");
 		setCommandExecutors();
 		setCommandTabCompleters();
 		registerListeners();
@@ -62,54 +64,54 @@ public class Exxentials extends JavaPlugin {
 	}
 
 	public void setCommandTabCompleters() {
-		this.getCommand("delwarp").setTabCompleter(warps);
-		this.getCommand("gamemode").setTabCompleter(new gamemodeTabCompleter());
-		this.getCommand("msg").setTabCompleter(new msgTabCompleter());
-		this.getCommand("nick").setTabCompleter(new nicknameTabCompleter());
-		this.getCommand("warp").setTabCompleter(warps);
+		Objects.requireNonNull(this.getCommand("delwarp")).setTabCompleter(warps);
+		Objects.requireNonNull(this.getCommand("gamemode")).setTabCompleter(new gamemodeTabCompleter());
+		Objects.requireNonNull(this.getCommand("msg")).setTabCompleter(new msgTabCompleter());
+		Objects.requireNonNull(this.getCommand("nick")).setTabCompleter(new nicknameTabCompleter());
+		Objects.requireNonNull(this.getCommand("warp")).setTabCompleter(warps);
 	}
 
 	public void setCommandExecutors() {
-		this.getCommand("afk").setExecutor(afk);
-		this.getCommand("god").setExecutor(new god());
-		this.getCommand("trackstop").setExecutor(new trackstop(track));
-		this.getCommand("butcher").setExecutor(new butcher());
-		this.getCommand("delwarp").setExecutor(new delwarp(this));
-		this.getCommand("fly").setExecutor(new fly());
-		this.getCommand("track").setExecutor(track);
-		this.getCommand("gamemode").setExecutor(new gamemode());
-		this.getCommand("gmc").setExecutor(new gmc());
-		this.getCommand("gms").setExecutor(new gms());
-		this.getCommand("heal").setExecutor(new heal());
-		this.getCommand("msg").setExecutor(msg);
-		this.getCommand("nickname").setExecutor(nick);
-		this.getCommand("reply").setExecutor(new reply(msg));
-		this.getCommand("setspawn").setExecutor(new setspawn(this));
-		this.getCommand("setwarp").setExecutor(new setwarp(this));
-		this.getCommand("spawn").setExecutor(spawn);
-		this.getCommand("vanish").setExecutor(new vanish());
-		this.getCommand("warp").setExecutor(warp);
+		Objects.requireNonNull(this.getCommand("afk")).setExecutor(afk);
+		Objects.requireNonNull(this.getCommand("god")).setExecutor(new god());
+		Objects.requireNonNull(this.getCommand("trackstop")).setExecutor(new trackstop(track));
+		Objects.requireNonNull(this.getCommand("butcher")).setExecutor(new butcher());
+		Objects.requireNonNull(this.getCommand("delwarp")).setExecutor(new delwarp(this));
+		Objects.requireNonNull(this.getCommand("fly")).setExecutor(new fly());
+		Objects.requireNonNull(this.getCommand("track")).setExecutor(track);
+		Objects.requireNonNull(this.getCommand("gamemode")).setExecutor(new gamemode());
+		Objects.requireNonNull(this.getCommand("gmc")).setExecutor(new gmc());
+		Objects.requireNonNull(this.getCommand("gms")).setExecutor(new gms());
+		Objects.requireNonNull(this.getCommand("heal")).setExecutor(new heal());
+		Objects.requireNonNull(this.getCommand("msg")).setExecutor(msg);
+		Objects.requireNonNull(this.getCommand("nickname")).setExecutor(nick);
+		Objects.requireNonNull(this.getCommand("reply")).setExecutor(new reply(msg));
+		Objects.requireNonNull(this.getCommand("setspawn")).setExecutor(new setspawn(this));
+		Objects.requireNonNull(this.getCommand("setwarp")).setExecutor(new setwarp(this));
+		Objects.requireNonNull(this.getCommand("spawn")).setExecutor(spawn);
+		Objects.requireNonNull(this.getCommand("vanish")).setExecutor(new vanish());
+		Objects.requireNonNull(this.getCommand("warp")).setExecutor(warp);
 	}
 
 	public void setCommandUsages(String format) {
-		this.getCommand("afk").setUsage(format + "/<command>");
-		this.getCommand("god").setUsage(format + "/<command> [player]");
-		this.getCommand("trackstop").setUsage(format + "/<command>");
-		this.getCommand("track").setUsage(format + "/<command> <player>");
-		this.getCommand("butcher").setUsage(format + "/<command>");
-		this.getCommand("fly").setUsage(format + "/<command>");
-		this.getCommand("gamemode").setUsage(format + "/<command> <gamemode> [player]");
-		this.getCommand("gmc").setUsage(format + "/<command> [player]");
-		this.getCommand("gms").setUsage(format + "/<command> [player]");
-		this.getCommand("heal").setUsage(format + "/<command> [player]");
-		this.getCommand("msg").setUsage(format + "/<command> <player> <message>");
-		this.getCommand("nickname").setUsage(format + "/<command> [player] <nickname>");
-		this.getCommand("reply").setUsage(format + "/<command>");
-		this.getCommand("setspawn").setUsage(format + "/<command>");
-		this.getCommand("setwarp").setUsage(format + "/<command> <warpName>");
-		this.getCommand("spawn").setUsage(format + "/<command>");
-		this.getCommand("vanish").setUsage(format + "/<command> [player]");
-		this.getCommand("warp").setUsage(format + "/<command> <warpName>");
+		Objects.requireNonNull(this.getCommand("afk")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("god")).setUsage(format + "[player]");
+		Objects.requireNonNull(this.getCommand("trackstop")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("track")).setUsage(format + "<player>");
+		Objects.requireNonNull(this.getCommand("butcher")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("fly")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("gamemode")).setUsage(format + "<gamemode> [player]");
+		Objects.requireNonNull(this.getCommand("gmc")).setUsage(format + "[player]");
+		Objects.requireNonNull(this.getCommand("gms")).setUsage(format + "[player]");
+		Objects.requireNonNull(this.getCommand("heal")).setUsage(format + "[player]");
+		Objects.requireNonNull(this.getCommand("msg")).setUsage(format + "<player> <message>");
+		Objects.requireNonNull(this.getCommand("nickname")).setUsage(format + "[player] <nickname>");
+		Objects.requireNonNull(this.getCommand("reply")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("setspawn")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("setwarp")).setUsage(format + "<warpName>");
+		Objects.requireNonNull(this.getCommand("spawn")).setUsage(format);
+		Objects.requireNonNull(this.getCommand("vanish")).setUsage(format + "[player]");
+		Objects.requireNonNull(this.getCommand("warp")).setUsage(format + "<warpName>");
 	}
 
 }
