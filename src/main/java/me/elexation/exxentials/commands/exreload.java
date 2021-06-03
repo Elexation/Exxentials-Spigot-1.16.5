@@ -11,14 +11,14 @@ public class exreload implements CommandExecutor {
 
     private final JavaPlugin plugin;
 
-    public exreload(JavaPlugin plugin){
+    public exreload(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
 
             sender.sendMessage(ChatColor.GREEN + "Exxentials reloaded");
             return true;
