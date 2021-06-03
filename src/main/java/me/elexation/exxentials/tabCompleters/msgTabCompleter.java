@@ -11,20 +11,20 @@ import java.util.List;
 
 public class msgTabCompleter implements TabCompleter {
 
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender instanceof Player))
-			return null;
-		Player player = (Player) sender;
-		if (!player.hasPermission("exxentials.msg"))
-			return null;
-		if (args.length == 1) {
-			List<String> playerNames = new ArrayList<>();
-			for (Player onlinePlayer : Bukkit.getOnlinePlayers())
-				playerNames.add(onlinePlayer.getName());
-			return playerNames;
-		}
-		return null;
-	}
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!(sender instanceof Player))
+            return null;
+        Player player = (Player) sender;
+        if (!player.hasPermission("exxentials.msg"))
+            return null;
+        if (args.length == 1) {
+            List<String> playerNames = new ArrayList<>();
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                playerNames.add(onlinePlayer.getName());
+            return playerNames;
+        }
+        return null;
+    }
 
 }

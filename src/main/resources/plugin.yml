@@ -64,41 +64,41 @@ commands:
     description: Sends you to spawn
   Reply:
     aliases:
-    - r
+      - r
     description: Reply to a player's message
   Msg:
     aliases:
-    - w
-    - whisper
-    - tell
+      - w
+      - whisper
+      - tell
     decription: Message a player privately
   Butcher:
     aliases:
     description: Kills all hostile mobs
   Nickname:
-    aliases: 
-    - nick
+    aliases:
+      - nick
     description: Changes specified player nickname
   Gms:
-    aliases: 
+    aliases:
     description: Sets specified player to gamemode survival
   Gmc:
-    aliases: 
+    aliases:
     description: Sets specified player to gamemode creative
   Gamemode:
     aliases:
-    - gm
+      - gm
     description: Changes gamemode of specified player
   Heal:
     aliases:
     description: Will heal a specified player
   Vanish:
     aliases:
-    - v
+      - v
     description: Puts you in vanish mode
   Afk:
     aliases:
     description: afk
   Fly:
-    aliases: 
+    aliases:
     description: Enable or disable fly

@@ -1,6 +1,6 @@
 settings:
-   HealthActionBar: false
-   AfkTimer: true
-   JoinMessage: '&6[&2+&6] <player>'
-   LeaveMessage: '&6[&4-&6] <player>'
-   worlds: 
+  HealthActionBar: false
+  AfkTimer: true
+  JoinMessage: '&6[&2+&6] <player>'
+  LeaveMessage: '&6[&4-&6] <player>'
+  worlds:

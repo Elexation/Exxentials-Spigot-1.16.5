@@ -9,25 +9,25 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class JoinLeaveMessages implements Listener {
 
-	private final String JoinMessage;
-	private final String LeaveMessage;
+    private final String JoinMessage;
+    private final String LeaveMessage;
 
-	public JoinLeaveMessages(JavaPlugin plugin) {
-		JoinMessage = plugin.getConfig().getString("settings.JoinMessage");
-		LeaveMessage = plugin.getConfig().getString("settings.LeaveMessage");
-	}
+    public JoinLeaveMessages(JavaPlugin plugin) {
+        JoinMessage = plugin.getConfig().getString("settings.JoinMessage");
+        LeaveMessage = plugin.getConfig().getString("settings.LeaveMessage");
+    }
 
-	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
-		String message = ChatColor.translateAlternateColorCodes('&', JoinMessage);
-		message = message.replace("<player>", event.getPlayer().getName());
-		event.setJoinMessage(message);
-	}
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        String message = ChatColor.translateAlternateColorCodes('&', JoinMessage);
+        message = message.replace("<player>", event.getPlayer().getName());
+        event.setJoinMessage(message);
+    }
 
-	@EventHandler
-	public void onLeave(PlayerQuitEvent event) {
-		String message = ChatColor.translateAlternateColorCodes('&', LeaveMessage);
-		message = message.replace("<player>", event.getPlayer().getName());
-		event.setQuitMessage(message);
-	}
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event) {
+        String message = ChatColor.translateAlternateColorCodes('&', LeaveMessage);
+        message = message.replace("<player>", event.getPlayer().getName());
+        event.setQuitMessage(message);
+    }
 }

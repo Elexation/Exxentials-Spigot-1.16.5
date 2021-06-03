@@ -8,13 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class colorCodedChat implements Listener {
-	@EventHandler
-	public void onChat(AsyncPlayerChatEvent event) {
-		event.setFormat(ChatColor.translateAlternateColorCodes('&',
-				String.format("%s &6&l>> &r%s", event.getPlayer().getDisplayName(), event.getMessage())));
-		Player player = event.getPlayer();
-		if (player.hasPermission("exxentials.color") || !player.hasPermission("essentials.*")) {
-			event.setMessage(ColorConverter.toColor(event.getMessage()));
-		}
-	}
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent event) {
+        event.setFormat(ChatColor.translateAlternateColorCodes('&',
+                String.format("%s &6&l>> &r%s", event.getPlayer().getDisplayName(), event.getMessage())));
+        Player player = event.getPlayer();
+        if (player.hasPermission("exxentials.color") || !player.hasPermission("essentials.*")) {
+            event.setMessage(ColorConverter.toColor(event.getMessage()));
+        }
+    }
 }

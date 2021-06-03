@@ -4,22 +4,24 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class configSetup {
 
-	public static void setup(JavaPlugin plugin){
-		plugin.getConfig().addDefault("settings.JoinMessage", "&6[&2+&6] <player>");
-		plugin.getConfig().addDefault("settings.LeaveMessage", "&6[&4-&6] <player>");
-		plugin.getConfig().options().copyDefaults(true);
-		saveDefaultConfig(plugin);
-		if (!plugin.getConfig().getBoolean("settings.HealthActionBar"))
-			plugin.getConfig().set("settings.HealthActionBar", false);
-		if (plugin.getConfig().getBoolean("settings.AfkTimer"))
-			plugin.getConfig().set("settings.AfkTimer", true);
-		saveConfig(plugin);
-	}
+    public static void setup(JavaPlugin plugin) {
+        plugin.getConfig().addDefault("settings.JoinMessage", "&6[&2+&6] <player>");
+        plugin.getConfig().addDefault("settings.LeaveMessage", "&6[&4-&6] <player>");
+        plugin.getConfig().options().copyDefaults(true);
+        saveDefaultConfig(plugin);
+        if (!plugin.getConfig().getBoolean("settings.HealthActionBar"))
+            plugin.getConfig().set("settings.HealthActionBar", false);
+        if (plugin.getConfig().getBoolean("settings.AfkTimer"))
+            plugin.getConfig().set("settings.AfkTimer", true);
+        saveConfig(plugin);
+    }
 
-	private static void saveDefaultConfig(JavaPlugin plugin) {
-		plugin.saveDefaultConfig();
-	}
+    private static void saveDefaultConfig(JavaPlugin plugin) {
+        plugin.saveDefaultConfig();
+    }
 
-	private static void saveConfig(JavaPlugin plugin) { plugin.saveConfig(); }
+    private static void saveConfig(JavaPlugin plugin) {
+        plugin.saveConfig();
+    }
 
 }

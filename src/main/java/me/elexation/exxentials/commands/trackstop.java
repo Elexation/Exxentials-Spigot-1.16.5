@@ -10,7 +10,7 @@ public class trackstop implements CommandExecutor {
 
     private final track track;
 
-    public trackstop(track track){
+    public trackstop(track track) {
         this.track = track;
     }
 
@@ -20,11 +20,11 @@ public class trackstop implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (!player.hasPermission("exxentials.track")){
+        if (!player.hasPermission("exxentials.track")) {
             player.sendMessage(ChatColor.DARK_RED + "You do not have permission to use this command");
             return true;
         }
-        if (!track.getTrackedPlayers().containsKey(player)){
+        if (!track.getTrackedPlayers().containsKey(player)) {
             player.sendMessage(ChatColor.DARK_RED + "You are not tracking anyone");
             return true;
         }

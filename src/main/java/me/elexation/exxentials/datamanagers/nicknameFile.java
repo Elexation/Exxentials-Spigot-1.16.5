@@ -11,38 +11,38 @@ import java.util.logging.Level;
 
 public class nicknameFile {
 
-	private static File file;
-	private static FileConfiguration nicknamesFile;
+    private static File file;
+    private static FileConfiguration nicknamesFile;
 
-	public static void setup() {
-		file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getDataFolder(), "nicknames.yml");
+    public static void setup() {
+        file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getDataFolder(), "nicknames.yml");
 
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
-						"Failed to create nicknames.yml");
-			}
-		}
-		nicknamesFile = YamlConfiguration.loadConfiguration(file);
-	}
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
+                        "Failed to create nicknames.yml");
+            }
+        }
+        nicknamesFile = YamlConfiguration.loadConfiguration(file);
+    }
 
-	public static FileConfiguration getConfig() {
-		return nicknamesFile;
-	}
+    public static FileConfiguration getConfig() {
+        return nicknamesFile;
+    }
 
-	public static void save() {
-		try {
-			nicknamesFile.save(file);
-		} catch (IOException e) {
-			Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
-					"Failed save to nicknames.yml");
-		}
-	}
+    public static void save() {
+        try {
+            nicknamesFile.save(file);
+        } catch (IOException e) {
+            Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
+                    "Failed save to nicknames.yml");
+        }
+    }
 
-	public static void reload() {
-		nicknamesFile = YamlConfiguration.loadConfiguration(file);
-	}
+    public static void reload() {
+        nicknamesFile = YamlConfiguration.loadConfiguration(file);
+    }
 
 }

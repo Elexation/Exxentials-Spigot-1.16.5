@@ -12,7 +12,7 @@ public class god implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
-        if (!player.hasPermission("exxentials.god")){
+        if (!player.hasPermission("exxentials.god")) {
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
             return true;
         }
@@ -25,13 +25,13 @@ public class god implements CommandExecutor {
         return true;
     }
 
-    private boolean handleGodMode(Player player, boolean state){
+    private boolean handleGodMode(Player player, boolean state) {
         player.setInvulnerable(state);
         player.sendMessage(ChatColor.GOLD + String.format("God mode %s", state ? "activated" : "deactivated"));
         return true;
     }
 
-    private boolean handleGodModeOther(Player player, Player target, boolean state){
+    private boolean handleGodModeOther(Player player, Player target, boolean state) {
         target.setInvulnerable(state);
         target.sendMessage(ChatColor.GOLD + String.format("God mode %s", state ? "activated" : "deactivated"));
         player.sendMessage(ChatColor.GOLD + String.format("God mode %s for %s", state ? "activated" : "deactivated", target.getName()));

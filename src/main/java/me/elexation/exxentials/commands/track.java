@@ -20,11 +20,11 @@ import java.util.Map;
 
 public class track implements CommandExecutor, Listener {
 
-    private final JavaPlugin plugin;
     private static final Map<Player, Player> trackedPlayers = new HashMap<>();
     private static final Map<Player, BukkitRunnable> playerRunables = new HashMap<>();
+    private final JavaPlugin plugin;
 
-    public track(JavaPlugin plugin){
+    public track(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -34,17 +34,17 @@ public class track implements CommandExecutor, Listener {
             return true;
         }
         Player player = (Player) sender;
-        if (!player.hasPermission("exxentials.track")){
+        if (!player.hasPermission("exxentials.track")) {
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
             return true;
         }
         if (args.length < 1) return false;
         Player target = Bukkit.getPlayer(args[0]);
-        if (target == null || !target.getName().equals(args[0])){
+        if (target == null || !target.getName().equals(args[0])) {
             player.sendMessage(ChatColor.DARK_RED + "Player not found");
             return true;
         }
-        if (!player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS) && !player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
+        if (!player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS) && !player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)) {
             player.sendMessage(ChatColor.GOLD + "Please hold a compass in your hand");
             return true;
         }
@@ -53,7 +53,8 @@ public class track implements CommandExecutor, Listener {
         if (playerRunables.containsKey(player))
             if (!playerRunables.get(player).isCancelled()) playerRunables.get(player).cancel();
         ItemStack compass;
-        if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) compass = player.getInventory().getItemInMainHand();
+        if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS))
+            compass = player.getInventory().getItemInMainHand();
         else compass = player.getInventory().getItemInOffHand();
         CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
         compassMeta.setLodestoneTracked(false);
@@ -76,8 +77,9 @@ public class track implements CommandExecutor, Listener {
                 }
                 ItemStack compass;
                 if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
-                        || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
-                    if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) compass = player.getInventory().getItemInMainHand();
+                        || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)) {
+                    if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS))
+                        compass = player.getInventory().getItemInMainHand();
                     else compass = player.getInventory().getItemInOffHand();
                     Player target = trackedPlayers.get(player);
                     CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
@@ -91,11 +93,11 @@ public class track implements CommandExecutor, Listener {
         };
         trackedPlayers.put(player, target);
         playerRunables.put(player, run);
-        run.runTaskTimer(plugin, 0 ,200);
+        run.runTaskTimer(plugin, 0, 200);
         return true;
     }
 
-    public Map<Player, Player> getTrackedPlayers(){
+    public Map<Player, Player> getTrackedPlayers() {
         return trackedPlayers;
     }
 }
