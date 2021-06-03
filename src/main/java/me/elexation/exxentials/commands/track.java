@@ -1,5 +1,7 @@
 package me.elexation.exxentials.commands;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -62,7 +64,7 @@ public class track implements CommandExecutor, Listener {
             @Override
             public void run() {
                 if (!trackedPlayers.containsKey(player) || !trackedPlayers.get(player).equals(target)) this.cancel();
-                if (player.getInventory().contains(Material.COMPASS) && trackedPlayers.get(player) != null){
+                if (player.getInventory().contains(Material.COMPASS) && trackedPlayers.get(player).isOnline()){
                     ItemStack compass;
                     if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
                             || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
@@ -72,9 +74,12 @@ public class track implements CommandExecutor, Listener {
                         else{
                             compass = player.getInventory().getItemInOffHand();
                         }
+                        Player target = trackedPlayers.get(player);
                         CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
-                        compassMeta.setLodestone(trackedPlayers.get(player).getLocation());
+                        compassMeta.setLodestone(target.getLocation());
                         compass.setItemMeta(compassMeta);
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', String.format("&6X: &a%d &6Z: &a%d", target.getLocation().getBlockX(), target.getLocation().getBlockZ()))));
                     }
                     return;
                 }
