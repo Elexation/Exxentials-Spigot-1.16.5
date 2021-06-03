@@ -14,13 +14,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Exxentials extends JavaPlugin {
 
-	private afk afk = new afk();
-	private msg msg = new msg();
-	private nickname nick = new nickname();
-	private spawn spawn = new spawn(this);
-	private warp warp = new warp(this);
-	private warps warps = new warps(this);
-	private track track = new track(this);
+	private final afk afk = new afk();
+	private final msg msg = new msg();
+	private final nickname nick = new nickname();
+	private final spawn spawn = new spawn(this);
+	private final warp warp = new warp(this);
+	private final warps warps = new warps(this);
+	private final track track = new track(this);
 
 	@Override
 	public void onEnable() {
@@ -34,7 +34,6 @@ public class Exxentials extends JavaPlugin {
 		setCommandTabCompleters();
 		registerListeners();
 		startSchedules();
-
 	}
 
 	@Override

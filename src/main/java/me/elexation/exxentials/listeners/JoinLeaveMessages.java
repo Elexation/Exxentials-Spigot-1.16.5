@@ -1,17 +1,16 @@
 package me.elexation.exxentials.listeners;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class JoinLeaveMessages implements Listener {
 
-	private String JoinMessage;
-	private String LeaveMessage;
+	private final String JoinMessage;
+	private final String LeaveMessage;
 
 	public JoinLeaveMessages(JavaPlugin plugin) {
 		JoinMessage = plugin.getConfig().getString("settings.JoinMessage");

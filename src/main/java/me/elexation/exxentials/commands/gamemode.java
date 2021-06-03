@@ -1,8 +1,6 @@
 package me.elexation.exxentials.commands;
 
-import java.util.Arrays;
-import java.util.List;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -10,11 +8,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.Arrays;
+import java.util.List;
 
 public class gamemode implements CommandExecutor {
 
-	private static List<String> possibleArguments = Arrays
+	private static final List<String> possibleArguments = Arrays
 			.asList("creative", "survival", "spectator", "adventure", "s", "c", "spec", "adv");
 
 	@Override

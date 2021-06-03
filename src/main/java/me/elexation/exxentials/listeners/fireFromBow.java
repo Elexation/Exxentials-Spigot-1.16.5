@@ -17,7 +17,7 @@ import java.util.List;
 
 public class fireFromBow implements Listener {
 
-	private static List<Arrow> arrows = new ArrayList<>();
+	private final static List<Arrow> arrows = new ArrayList<>();
 
 	@EventHandler
 	public void onShootBow(EntityShootBowEvent e) {

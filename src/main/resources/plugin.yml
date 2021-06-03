@@ -40,8 +40,12 @@ permissions:
     default: true
   exxentials.god:
     default: op
+  exxentials.reload:
+    default: op
 
 commands:
+  Exreload:
+    description: Reloads Exxentials
   God:
     description: God mode
   Trackstop:

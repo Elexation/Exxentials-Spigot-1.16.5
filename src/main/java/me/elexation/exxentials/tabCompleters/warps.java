@@ -1,13 +1,13 @@
 package me.elexation.exxentials.tabCompleters;
 
-import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class warps implements TabCompleter {
 
@@ -25,16 +25,10 @@ public class warps implements TabCompleter {
 		if (!player.hasPermission("exxentials.warp"))
 			return null;
 		if (args.length == 1) {
-			String warpNamesPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpNames";
-			String warpLocationsPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpLocations";
+			String warpNamesPath = "settings.worlds." + player.getWorld().getUID() + ".warpNames";
+			String warpLocationsPath = "settings.worlds." + player.getWorld().getUID() + ".warpLocations";
 			List<String> warps = plugin.getConfig().getStringList(warpNamesPath);
 			List<String> newWarps = plugin.getConfig().getStringList(warpNamesPath);
-			if (warps == null) {
-				plugin.getConfig().set(warpLocationsPath, null);
-				plugin.getConfig().set(warpNamesPath, null);
-				plugin.saveConfig();
-				return null;
-			}
 			for (String warp : warps) {
 				Location loc = plugin.getConfig().getLocation(warpLocationsPath + "." + warp);
 				if (loc == null || !loc.isWorldLoaded()) {

@@ -1,14 +1,14 @@
 package me.elexation.exxentials.tabCompleters;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class gamemodeTabCompleter implements TabCompleter {
 
@@ -20,9 +20,8 @@ public class gamemodeTabCompleter implements TabCompleter {
 		if (!player.hasPermission("exxentials.gamemode"))
 			return null;
 		if (args.length == 1) {
-			List<String> gamemodes = Arrays
-					.asList(new String[] { "creative", "survival", "spectator", "adventure", "s", "c", "spec", "adv" });
-			return gamemodes;
+			return Arrays
+					.asList("creative", "survival", "spectator", "adventure", "s", "c", "spec", "adv");
 		} else if (args.length == 2) {
 			List<String> playerNames = new ArrayList<>();
 			for (Player onlinePlayer : Bukkit.getOnlinePlayers())

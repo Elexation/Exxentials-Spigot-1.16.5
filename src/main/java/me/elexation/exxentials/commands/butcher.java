@@ -1,7 +1,5 @@
 package me.elexation.exxentials.commands;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -10,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class butcher implements CommandExecutor {
 

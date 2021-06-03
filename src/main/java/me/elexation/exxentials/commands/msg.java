@@ -1,19 +1,18 @@
 package me.elexation.exxentials.commands;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
+import java.util.Map;
 
 public class msg implements CommandExecutor {
 
-	private static Map<Player, Player> replyList = new HashMap<>();
+	private static final Map<Player, Player> replyList = new HashMap<>();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

@@ -1,5 +1,7 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.datamanagers.nicknameFile;
+import me.elexation.exxentials.miscellaneous.ColorConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,9 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import me.elexation.exxentials.datamanagers.nicknameFile;
-import me.elexation.exxentials.miscellaneous.ColorConverter;
 
 public class nickname implements CommandExecutor, Listener {
 

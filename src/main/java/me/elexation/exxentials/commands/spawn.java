@@ -1,7 +1,5 @@
 package me.elexation.exxentials.commands;
 
-import java.util.ArrayList;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -15,9 +13,11 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+
 public class spawn implements CommandExecutor, Listener {
 
-	private static ArrayList<Player> PlayerList = new ArrayList<>();
+	private static final ArrayList<Player> PlayerList = new ArrayList<>();
 	private final JavaPlugin plugin;
 
 	public spawn(JavaPlugin plugin) {

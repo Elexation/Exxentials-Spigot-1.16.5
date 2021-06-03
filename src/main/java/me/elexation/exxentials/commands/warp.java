@@ -1,8 +1,6 @@
 package me.elexation.exxentials.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,11 +12,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class warp implements CommandExecutor, Listener {
 
-	private static ArrayList<Player> PlayerList = new ArrayList<>();
+	private static final ArrayList<Player> PlayerList = new ArrayList<>();
 	private final JavaPlugin plugin;
 
 	public warp(JavaPlugin plugin) {

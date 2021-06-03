@@ -1,12 +1,11 @@
 package me.elexation.exxentials.listeners;
 
+import me.elexation.exxentials.miscellaneous.ColorConverter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import me.elexation.exxentials.miscellaneous.ColorConverter;
 
 public class colorCodedChat implements Listener {
 	@EventHandler

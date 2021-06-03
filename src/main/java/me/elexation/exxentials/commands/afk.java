@@ -1,10 +1,6 @@
 package me.elexation.exxentials.commands;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,21 +9,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerCommandSendEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class afk implements CommandExecutor, Listener {
 
-	private static List<String> afkList = new ArrayList<>();
-	private static Map<String, Location> previousLocations = new HashMap<>();
-	private static Map<String, Long> playerTimers = new HashMap<>();
+	private final static List<String> afkList = new ArrayList<>();
+	private final static Map<String, Location> previousLocations = new HashMap<>();
+	private final static Map<String, Long> playerTimers = new HashMap<>();
 
 	public void run(JavaPlugin plugin) {
 		new BukkitRunnable() {

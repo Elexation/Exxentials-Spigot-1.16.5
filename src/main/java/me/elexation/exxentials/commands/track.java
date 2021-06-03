@@ -21,8 +21,8 @@ import java.util.Map;
 public class track implements CommandExecutor, Listener {
 
     private final JavaPlugin plugin;
-    private static Map<Player, Player> trackedPlayers = new HashMap<>();
-    private static Map<Player, BukkitRunnable> playerRunables = new HashMap<>();
+    private static final Map<Player, Player> trackedPlayers = new HashMap<>();
+    private static final Map<Player, BukkitRunnable> playerRunables = new HashMap<>();
 
     public track(JavaPlugin plugin){
         this.plugin = plugin;

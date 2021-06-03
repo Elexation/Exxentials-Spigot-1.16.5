@@ -1,10 +1,7 @@
 package me.elexation.exxentials.listeners;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -13,12 +10,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EntityHealthActionBar implements Listener {
 
-	private static Map<LivingEntity, Timer> HealthTimerList = new HashMap<LivingEntity, Timer>();
+	private static final Map<LivingEntity, Timer> HealthTimerList = new HashMap<>();
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -37,22 +36,19 @@ public class EntityHealthActionBar implements Listener {
 			if (HealthTimerList.containsKey(entity)) {
 				HealthTimerList.get(entity).cancel();
 			}
-			int numHearts = 0;
+			int numHearts;
 			if (entity.getMaxHealth() >= 40)
 				numHearts = (int) (entity.getHealth() - e.getFinalDamage()) / 5;
 			else
 				numHearts = (int) (entity.getHealth() - e.getFinalDamage()) / 2;
 			if (numHearts < 1 && !((entity.getHealth() - e.getFinalDamage()) < 1))
 				numHearts = 1;
-			String hearts = "";
+			StringBuilder hearts = new StringBuilder();
 			for (int i = 1; i <= numHearts; i++)
-				hearts += "\u2764";
-			// int currentHealth;
-			// if ((entity.getHealth()-e.getFinalDamage()) < 0) currentHealth = 0;
-			// else currentHealth = (int)entity.getHealth()-(int)e.getFinalDamage();
+				hearts.append("\u2764");
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-					TextComponent.fromLegacyText(ChatColor.DARK_RED + hearts));
-			entity.setCustomName(ChatColor.DARK_RED + hearts + "");
+					TextComponent.fromLegacyText(ChatColor.DARK_RED + hearts.toString()));
+			entity.setCustomName(ChatColor.DARK_RED + hearts.toString() + "");
 			entity.setCustomNameVisible(true);
 			Timer timer = new Timer();
 			HealthTimerList.put(entity, timer);
