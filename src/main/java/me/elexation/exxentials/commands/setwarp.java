@@ -24,7 +24,7 @@ public class setwarp implements CommandExecutor {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.setwarp")) {
+		if (!player.hasPermission("exxentials.setwarp")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

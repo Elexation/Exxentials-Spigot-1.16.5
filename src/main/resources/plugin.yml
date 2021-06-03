@@ -5,40 +5,40 @@ author: Elexation
 api-version: 1.16
 
 permissions:
-  essentials.*:
+  exxentials.*:
     description: All perms
     default: op
-  essentials.track:
+  exxentials.track:
     default: true
-  essentials.delwarp:
+  exxentials.delwarp:
     default: op
-  essentials.setspawn:
+  exxentials.setspawn:
     default: op
-  essentials.spawn:
+  exxentials.spawn:
     default: true
-  essentials.butcher:
+  exxentials.butcher:
     default: op
-  essentials.afk:
+  exxentials.afk:
     default: true
-  essentials.heal:
+  exxentials.heal:
     default: op
-  essentials.gamemode:
+  exxentials.gamemode:
     default: op
-  essentials.nickname:
+  exxentials.nickname:
     default: op
-  essentials.vanish:
+  exxentials.vanish:
     default: op
-  essentials.fly:
+  exxentials.fly:
     default: op
-  essentials.color:
+  exxentials.color:
     default: op
-  essentials.warp:
+  exxentials.warp:
     default: true
-  essentials.setwarp:
+  exxentials.setwarp:
     default: op
-  essentials.msg:
+  exxentials.msg:
     default: true
-  essentials.god:
+  exxentials.god:
     default: op
 
 commands:

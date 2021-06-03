@@ -16,7 +16,7 @@ public class msgTabCompleter implements TabCompleter {
 		if (!(sender instanceof Player))
 			return null;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.msg"))
+		if (!player.hasPermission("exxentials.msg"))
 			return null;
 		if (args.length == 1) {
 			List<String> playerNames = new ArrayList<>();

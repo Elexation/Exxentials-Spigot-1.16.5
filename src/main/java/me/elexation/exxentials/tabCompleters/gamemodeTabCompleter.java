@@ -17,7 +17,7 @@ public class gamemodeTabCompleter implements TabCompleter {
 		if (!(sender instanceof Player))
 			return null;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.gamemode"))
+		if (!player.hasPermission("exxentials.gamemode"))
 			return null;
 		if (args.length == 1) {
 			List<String> gamemodes = Arrays

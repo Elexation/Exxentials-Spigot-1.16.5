@@ -26,7 +26,7 @@ public class vanish implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.vanish")) {
+		if (!player.hasPermission("exxentials.vanish")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

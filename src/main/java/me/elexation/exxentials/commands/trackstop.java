@@ -20,7 +20,7 @@ public class trackstop implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (!player.hasPermission("essentials.track")){
+        if (!player.hasPermission("exxentials.track")){
             player.sendMessage(ChatColor.DARK_RED + "You do not have permission to use this command");
             return true;
         }

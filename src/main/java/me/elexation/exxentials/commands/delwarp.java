@@ -25,7 +25,7 @@ public class delwarp implements CommandExecutor {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.delwarp")) {
+		if (!player.hasPermission("exxentials.delwarp")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

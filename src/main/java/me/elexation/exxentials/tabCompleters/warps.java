@@ -22,7 +22,7 @@ public class warps implements TabCompleter {
 		if (!(sender instanceof Player))
 			return null;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.warp"))
+		if (!player.hasPermission("exxentials.warp"))
 			return null;
 		if (args.length == 1) {
 			String warpNamesPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpNames";

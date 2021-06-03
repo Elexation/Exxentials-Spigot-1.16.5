@@ -69,7 +69,7 @@ public class afk implements CommandExecutor, Listener {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.afk")) {
+		if (!player.hasPermission("exxentials.afk")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

@@ -31,7 +31,7 @@ public class spawn implements CommandExecutor, Listener {
 		Player player = (Player) sender;
 		if (PlayerList.contains(player))
 			return true;
-		if (!player.hasPermission("essentials.spawn")) {
+		if (!player.hasPermission("exxentials.spawn")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

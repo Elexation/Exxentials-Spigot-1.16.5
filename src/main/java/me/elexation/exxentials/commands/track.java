@@ -42,7 +42,7 @@ public class track implements CommandExecutor, Listener {
             return true;
         }
         Player player = (Player) sender;
-        if (!player.hasPermission("essentials.track")){
+        if (!player.hasPermission("exxentials.track")){
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
             return true;
         }

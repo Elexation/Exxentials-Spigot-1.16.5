@@ -14,7 +14,7 @@ public class colorCodedChat implements Listener {
 		event.setFormat(ChatColor.translateAlternateColorCodes('&',
 				String.format("%s &6&l>> &r%s", event.getPlayer().getDisplayName(), event.getMessage())));
 		Player player = event.getPlayer();
-		if (player.hasPermission("essentials.color") || !player.hasPermission("essentials.*")) {
+		if (player.hasPermission("exxentials.color") || !player.hasPermission("essentials.*")) {
 			event.setMessage(ColorConverter.toColor(event.getMessage()));
 		}
 	}

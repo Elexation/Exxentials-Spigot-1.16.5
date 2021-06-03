@@ -12,7 +12,7 @@ public class god implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
-        if (!player.hasPermission("essentials.god")){
+        if (!player.hasPermission("exxentials.god")){
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
             return true;
         }

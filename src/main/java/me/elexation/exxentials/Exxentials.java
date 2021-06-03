@@ -9,7 +9,9 @@ import me.elexation.exxentials.listeners.*;
 import me.elexation.exxentials.miscellaneous.*;
 import me.elexation.exxentials.tabCompleters.*;
 
-import java.util.Objects;
+import java.io.File;
+import java.net.URL;
+import java.util.*;
 
 public class Exxentials extends JavaPlugin {
 
@@ -24,6 +26,10 @@ public class Exxentials extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Exxentials version 1.0 - Elexation");
+		for (Class clazz : getClassesInPackage("me.elexation")){
+			System.out.println(clazz.getName());
+		}
+		this.reloadConfig();
 
 		new nicknameConfigSetup();
 		new configSetup(this);
@@ -114,4 +120,45 @@ public class Exxentials extends JavaPlugin {
 		Objects.requireNonNull(this.getCommand("warp")).setUsage(format + "<warpName>");
 	}
 
+	public static Class[] getClassesInPackage(String pckgname) {
+		File directory = getPackageDirectory(pckgname);
+		if (!directory.exists()) {
+			throw new IllegalArgumentException("Could not get directory resource for package " + pckgname + ".");
+		}
+
+		return getClassesInPackage(pckgname, directory);
+	}
+
+	private static File getPackageDirectory(String pckgname) {
+		ClassLoader cld = Thread.currentThread().getContextClassLoader();
+		if (cld == null) {
+			throw new IllegalStateException("Can't get class loader.");
+		}
+
+		URL resource = cld.getResource(pckgname.replace('.', '/'));
+		if (resource == null) {
+			throw new RuntimeException("Package " + pckgname + " not found on classpath.");
+		}
+
+		return new File(resource.getFile());
+	}
+
+	private static Class[] getClassesInPackage(String pckgname, File directory) {
+		List<Class> classes = new ArrayList<Class>();
+		for (String filename : directory.list()) {
+			if (filename.endsWith(".class")) {
+				String classname = buildClassname(pckgname, filename);
+				try {
+					classes.add(Class.forName(classname));
+				} catch (ClassNotFoundException e) {
+					System.err.println("Error creating class " + classname);
+				}
+			}
+		}
+		return classes.toArray(new Class[classes.size()]);
+	}
+
+	private static String buildClassname(String pckgname, String filename) {
+		return pckgname + '.' + filename.replace(".class", "");
+	}
 }

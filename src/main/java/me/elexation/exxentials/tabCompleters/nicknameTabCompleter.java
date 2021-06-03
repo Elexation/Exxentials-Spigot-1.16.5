@@ -16,7 +16,7 @@ public class nicknameTabCompleter implements TabCompleter {
 		if (!(sender instanceof Player))
 			return null;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.nickname"))
+		if (!player.hasPermission("exxentials.nickname"))
 			return null;
 		if (args.length == 1) {
 			List<String> playerNames = new ArrayList<>();

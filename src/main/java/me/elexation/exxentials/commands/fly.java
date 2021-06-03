@@ -13,7 +13,7 @@ public class fly implements CommandExecutor {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.fly")) {
+		if (!player.hasPermission("exxentials.fly")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

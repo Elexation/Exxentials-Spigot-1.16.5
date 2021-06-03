@@ -22,7 +22,7 @@ public class gamemode implements CommandExecutor {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.gamemode")) {
+		if (!player.hasPermission("exxentials.gamemode")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}

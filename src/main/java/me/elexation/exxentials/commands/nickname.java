@@ -20,7 +20,7 @@ public class nickname implements CommandExecutor, Listener {
 		if (!(sender instanceof Player))
 			return true;
 		Player player = (Player) sender;
-		if (!player.hasPermission("essentials.nickname")) {
+		if (!player.hasPermission("exxentials.nickname")) {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
 			return true;
 		}
