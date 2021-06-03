@@ -1,0 +1,90 @@
+main: me.elexation.exxentials.Exxentials
+name: Exxentials
+version: 1.0
+author: Elexation
+api-version: 1.16
+
+permissions:
+  essentials.*:
+    description: All perms
+    default: op
+  essentials.delwarp:
+    default: op
+  essentials.setspawn:
+    default: op
+  essentials.spawn:
+    default: true
+  essentials.butcher:
+    default: op
+  essentials.afk:
+    default: true
+  essentials.heal:
+    default: op
+  essentials.gamemode:
+    default: op
+  essentials.nickname:
+    default: op
+  essentials.vanish:
+    default: op
+  essentials.fly:
+    default: op
+  essentials.color:
+    default: op
+  essentials.warp:
+    default: true
+  essentials.setwarp:
+    default: op
+  essentials.msg:
+    default: true
+
+commands:
+  Delwarp:
+    description: Deletes an existing warp
+  Warp:
+    description: Teleport to a warp
+  Setwarp:
+    description: Sets a new warp
+  Setspawn:
+    description: Sets spawn
+  Spawn:
+    description: Sends you to spawn
+  Reply:
+    aliases:
+    - r
+    description: Reply to a player's message.
+  Msg:
+    aliases:
+    - w
+    - whisper
+    - tell
+    decription: Message a player privately.
+  Butcher:
+    aliases:
+    description: Kills all hostile mobs
+  Nickname:
+    aliases: 
+    - nick
+    description: Changes specified player nickname.
+  Gms:
+    aliases: 
+    description: Sets specified player to gamemode survival
+  Gmc:
+    aliases: 
+    description: Sets specified player to gamemode creative
+  Gamemode:
+    aliases:
+    - gm
+    description: Changes gamemode of specified player.
+  Heal:
+    aliases:
+    description: Will heal a specified player.
+  Vanish:
+    aliases:
+    - v
+    description: Puts you in vanish mode.
+  Afk:
+    aliases:
+    description: afk
+  Fly:
+    aliases: 
+    description: Enable or disable fly.
