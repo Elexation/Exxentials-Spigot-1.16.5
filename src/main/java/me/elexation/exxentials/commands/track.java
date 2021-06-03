@@ -7,19 +7,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class track implements CommandExecutor, Listener {
 
+    private final JavaPlugin plugin;
     private static Map<Player, Player> trackedPlayers = new HashMap<Player, Player>();
+    private static Map<Player, BukkitRunnable> playerRunables = new HashMap<Player, BukkitRunnable>();
+
+    public track(JavaPlugin plugin){
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -41,40 +46,51 @@ public class track implements CommandExecutor, Listener {
             player.sendMessage(ChatColor.GOLD + "Please hold a compass in your hand");
             return true;
         }
+        if (trackedPlayers.containsKey(player))
+            if (trackedPlayers.get(player).equals(target)) return true;
+        if (playerRunables.containsKey(player))
+            if (!playerRunables.get(player).isCancelled()) playerRunables.get(player).cancel();
         ItemStack compass;
         if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) compass = player.getInventory().getItemInMainHand();
         else compass = player.getInventory().getItemInOffHand();
-        CompassMeta compassMeta = (CompassMeta) compass;
+        CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
         compassMeta.setLodestoneTracked(false);
-        compassMeta.setLodestone(target.getLocation());
-        compassMeta.setDisplayName(ChatColor.GOLD + "Tracking " + target.getName());
+        compassMeta.setAttributeModifiers(null);
+        compass.setItemMeta(compassMeta);
+        player.sendMessage(ChatColor.GOLD + "Tracking " + target.getName());
+        BukkitRunnable run = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!trackedPlayers.containsKey(player) || !trackedPlayers.get(player).equals(target)) this.cancel();
+                if (player.getInventory().contains(Material.COMPASS) && trackedPlayers.get(player) != null){
+                    ItemStack compass;
+                    if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
+                            || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
+                        if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)){
+                            compass = player.getInventory().getItemInMainHand();
+                        }
+                        else{
+                            compass = player.getInventory().getItemInOffHand();
+                        }
+                        CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
+                        compassMeta.setLodestone(trackedPlayers.get(player).getLocation());
+                        compass.setItemMeta(compassMeta);
+                    }
+                    return;
+                }
+                player.sendMessage(ChatColor.GOLD + "Tracking stopped");
+                trackedPlayers.remove(player);
+                this.cancel();
+            }
+
+        };
         trackedPlayers.put(player, target);
+        playerRunables.put(player, run);
+        run.runTaskTimer(plugin, 0 ,200);
         return true;
     }
 
     public Map<Player, Player> getTrackedPlayers(){
         return trackedPlayers;
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e){
-        Player player = e.getPlayer();
-        if (!trackedPlayers.containsKey(player)) return;
-        if (player.getInventory().contains(Material.COMPASS) && trackedPlayers.get(player) != null){
-            if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
-                    || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
-                if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)){
-                    CompassMeta compassMeta = (CompassMeta) player.getInventory().getItemInMainHand();
-                    compassMeta.setLodestone(trackedPlayers.get(player).getLocation());
-                }
-                else{
-                    CompassMeta compassMeta = (CompassMeta) player.getInventory().getItemInOffHand();
-                    compassMeta.setLodestone(trackedPlayers.get(player).getLocation());
-                }
-            }
-            return;
-        }
-        player.sendMessage(ChatColor.GOLD + "Tracking stopped");
-        trackedPlayers.remove(player);
     }
 }

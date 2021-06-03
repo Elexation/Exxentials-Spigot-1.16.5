@@ -17,7 +17,7 @@ public class Exxentials extends JavaPlugin {
 	private  spawn spawn = new spawn(this);
 	private  warp warp = new warp(this);
 	private  warps warps = new warps(this);
-	private track track = new track();
+	private track track = new track(this);
 
 	@Override
 	public void onEnable() {
@@ -49,7 +49,6 @@ public class Exxentials extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new colorCodedChat(), this);
 		this.getServer().getPluginManager().registerEvents(afk, this);
 		this.getServer().getPluginManager().registerEvents(new JoinLeaveMessages(this), this);
-		this.getServer().getPluginManager().registerEvents(track, this);
 		this.getServer().getPluginManager().registerEvents(nick, this);
 		this.getServer().getPluginManager().registerEvents(new sunnyDay(), this);
 		this.getServer().getPluginManager().registerEvents(spawn, this);

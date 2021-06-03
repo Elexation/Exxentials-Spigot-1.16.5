@@ -8,6 +8,8 @@ permissions:
   essentials.*:
     description: All perms
     default: op
+  essentials.track:
+    default: true
   essentials.delwarp:
     default: op
   essentials.setspawn:
@@ -38,6 +40,10 @@ permissions:
     default: true
 
 commands:
+  Trackstop:
+    description: Stop tracking
+  Track:
+    description: Track a player while holding a compass
   Delwarp:
     description: Deletes an existing warp
   Warp:
@@ -51,20 +57,20 @@ commands:
   Reply:
     aliases:
     - r
-    description: Reply to a player's message.
+    description: Reply to a player's message
   Msg:
     aliases:
     - w
     - whisper
     - tell
-    decription: Message a player privately.
+    decription: Message a player privately
   Butcher:
     aliases:
     description: Kills all hostile mobs
   Nickname:
     aliases: 
     - nick
-    description: Changes specified player nickname.
+    description: Changes specified player nickname
   Gms:
     aliases: 
     description: Sets specified player to gamemode survival
@@ -74,17 +80,17 @@ commands:
   Gamemode:
     aliases:
     - gm
-    description: Changes gamemode of specified player.
+    description: Changes gamemode of specified player
   Heal:
     aliases:
-    description: Will heal a specified player.
+    description: Will heal a specified player
   Vanish:
     aliases:
     - v
-    description: Puts you in vanish mode.
+    description: Puts you in vanish mode
   Afk:
     aliases:
     description: afk
   Fly:
     aliases: 
-    description: Enable or disable fly.
+    description: Enable or disable fly
