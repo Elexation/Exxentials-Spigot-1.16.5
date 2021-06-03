@@ -11,12 +11,13 @@ import me.elexation.exxentials.tabCompleters.*;
 
 public class Exxentials extends JavaPlugin {
 
-	afk afk = new afk();
-	msg msg = new msg();
-	nickname nick = new nickname();
-	spawn spawn = new spawn(this);
-	warp warp = new warp(this);
-	warps warps = new warps(this);
+	private  afk afk = new afk();
+	private  msg msg = new msg();
+	private  nickname nick = new nickname();
+	private  spawn spawn = new spawn(this);
+	private  warp warp = new warp(this);
+	private  warps warps = new warps(this);
+	private track track = new track();
 
 	@Override
 	public void onEnable() {
@@ -48,6 +49,7 @@ public class Exxentials extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new colorCodedChat(), this);
 		this.getServer().getPluginManager().registerEvents(afk, this);
 		this.getServer().getPluginManager().registerEvents(new JoinLeaveMessages(this), this);
+		this.getServer().getPluginManager().registerEvents(track, this);
 		this.getServer().getPluginManager().registerEvents(nick, this);
 		this.getServer().getPluginManager().registerEvents(new sunnyDay(), this);
 		this.getServer().getPluginManager().registerEvents(spawn, this);
@@ -70,9 +72,11 @@ public class Exxentials extends JavaPlugin {
 
 	public void setCommandExecutors() {
 		this.getCommand("afk").setExecutor(afk);
+		this.getCommand("trackstop").setExecutor(new trackstop(track));
 		this.getCommand("butcher").setExecutor(new butcher());
 		this.getCommand("delwarp").setExecutor(new delwarp(this));
 		this.getCommand("fly").setExecutor(new fly());
+		this.getCommand("track").setExecutor(track);
 		this.getCommand("gamemode").setExecutor(new gamemode());
 		this.getCommand("gmc").setExecutor(new gmc());
 		this.getCommand("gms").setExecutor(new gms());
@@ -83,12 +87,14 @@ public class Exxentials extends JavaPlugin {
 		this.getCommand("setspawn").setExecutor(new setspawn(this));
 		this.getCommand("setwarp").setExecutor(new setwarp(this));
 		this.getCommand("spawn").setExecutor(spawn);
-		this.getCommand("vanish").setExecutor(new vanish(this));
+		this.getCommand("vanish").setExecutor(new vanish());
 		this.getCommand("warp").setExecutor(warp);
 	}
 
 	public void setCommandUsages(String format) {
 		this.getCommand("afk").setUsage(format + "/<command>");
+		this.getCommand("trackstop").setUsage(format + "/<command>");
+		this.getCommand("track").setUsage(format + "/<command> <player>");
 		this.getCommand("butcher").setUsage(format + "/<command>");
 		this.getCommand("fly").setUsage(format + "/<command>");
 		this.getCommand("gamemode").setUsage(format + "/<command> <gamemode> [player]");

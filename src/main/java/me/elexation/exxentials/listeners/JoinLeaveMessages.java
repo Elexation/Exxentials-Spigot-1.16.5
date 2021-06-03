@@ -20,15 +20,15 @@ public class JoinLeaveMessages implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		JoinMessage = ChatColor.translateAlternateColorCodes('&', JoinMessage);
-		JoinMessage = JoinMessage.replace("<player>", event.getPlayer().getName());
-		event.setJoinMessage(JoinMessage);
+		String message = ChatColor.translateAlternateColorCodes('&', JoinMessage);
+		message = message.replace("<player>", event.getPlayer().getName());
+		event.setJoinMessage(message);
 	}
 
 	@EventHandler
 	public void onLeave(PlayerQuitEvent event) {
-		LeaveMessage = ChatColor.translateAlternateColorCodes('&', LeaveMessage);
-		LeaveMessage = LeaveMessage.replace("<player>", event.getPlayer().getName());
-		event.setQuitMessage(LeaveMessage);
+		String message = ChatColor.translateAlternateColorCodes('&', LeaveMessage);
+		message = message.replace("<player>", event.getPlayer().getName());
+		event.setQuitMessage(message);
 	}
 }
