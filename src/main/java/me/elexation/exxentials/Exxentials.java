@@ -71,6 +71,7 @@ public class Exxentials extends JavaPlugin {
 
 	public void setCommandExecutors() {
 		this.getCommand("afk").setExecutor(afk);
+		this.getCommand("god").setExecutor(new god());
 		this.getCommand("trackstop").setExecutor(new trackstop(track));
 		this.getCommand("butcher").setExecutor(new butcher());
 		this.getCommand("delwarp").setExecutor(new delwarp(this));
@@ -92,6 +93,7 @@ public class Exxentials extends JavaPlugin {
 
 	public void setCommandUsages(String format) {
 		this.getCommand("afk").setUsage(format + "/<command>");
+		this.getCommand("god").setUsage(format + "/<command> [player]");
 		this.getCommand("trackstop").setUsage(format + "/<command>");
 		this.getCommand("track").setUsage(format + "/<command> <player>");
 		this.getCommand("butcher").setUsage(format + "/<command>");
@@ -106,7 +108,7 @@ public class Exxentials extends JavaPlugin {
 		this.getCommand("setspawn").setUsage(format + "/<command>");
 		this.getCommand("setwarp").setUsage(format + "/<command> <warpName>");
 		this.getCommand("spawn").setUsage(format + "/<command>");
-		this.getCommand("vanish").setUsage(format + "/<command>");
+		this.getCommand("vanish").setUsage(format + "/<command> [player]");
 		this.getCommand("warp").setUsage(format + "/<command> <warpName>");
 	}
 

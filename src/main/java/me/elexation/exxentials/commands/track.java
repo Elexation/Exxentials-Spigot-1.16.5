@@ -5,16 +5,24 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import javax.swing.text.html.HTML;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +43,7 @@ public class track implements CommandExecutor, Listener {
         }
         Player player = (Player) sender;
         if (!player.hasPermission("essentials.track")){
-            player.sendMessage(ChatColor.DARK_RED + "You do not have permission to use this command");
+            player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
             return true;
         }
         if (args.length < 1) return false;
@@ -57,35 +65,35 @@ public class track implements CommandExecutor, Listener {
         else compass = player.getInventory().getItemInOffHand();
         CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
         compassMeta.setLodestoneTracked(false);
-        compassMeta.setAttributeModifiers(null);
+        compassMeta.setDisplayName(ChatColor.GOLD + "Tracking: " + ChatColor.GREEN + target.getName());
         compass.setItemMeta(compassMeta);
         player.sendMessage(ChatColor.GOLD + "Tracking " + target.getName());
         BukkitRunnable run = new BukkitRunnable() {
             @Override
             public void run() {
-                if (!trackedPlayers.containsKey(player) || !trackedPlayers.get(player).equals(target)) this.cancel();
-                if (player.getInventory().contains(Material.COMPASS) && trackedPlayers.get(player).isOnline()){
-                    ItemStack compass;
-                    if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
-                            || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
-                        if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)){
-                            compass = player.getInventory().getItemInMainHand();
-                        }
-                        else{
-                            compass = player.getInventory().getItemInOffHand();
-                        }
-                        Player target = trackedPlayers.get(player);
-                        CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
-                        compassMeta.setLodestone(target.getLocation());
-                        compass.setItemMeta(compassMeta);
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', String.format("&6X: &a%d &6Z: &a%d", target.getLocation().getBlockX(), target.getLocation().getBlockZ()))));
-                    }
+                if (!trackedPlayers.containsKey(player)) {
+                    this.cancel();
+                    playerRunables.remove(player);
                     return;
                 }
-                player.sendMessage(ChatColor.GOLD + "Tracking stopped");
-                trackedPlayers.remove(player);
-                this.cancel();
+                if (!player.getInventory().contains(Material.COMPASS) || !trackedPlayers.get(player).isOnline()) {
+                    player.sendMessage(ChatColor.GOLD + "Tracking stopped");
+                    trackedPlayers.remove(player);
+                    playerRunables.remove(player);
+                    this.cancel();
+                }
+                ItemStack compass;
+                if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
+                        || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)){
+                    if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) compass = player.getInventory().getItemInMainHand();
+                    else compass = player.getInventory().getItemInOffHand();
+                    Player target = trackedPlayers.get(player);
+                    CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
+                    compassMeta.setLodestone(target.getLocation());
+                    compass.setItemMeta(compassMeta);
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                            TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', String.format("&6X: &2%d &6Z: &2%d", target.getLocation().getBlockX(), target.getLocation().getBlockZ()))));
+                }
             }
 
         };

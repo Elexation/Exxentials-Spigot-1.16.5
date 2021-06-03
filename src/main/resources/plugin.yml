@@ -38,8 +38,12 @@ permissions:
     default: op
   essentials.msg:
     default: true
+  essentials.god:
+    default: op
 
 commands:
+  God:
+    description: God mode
   Trackstop:
     description: Stop tracking
   Track:

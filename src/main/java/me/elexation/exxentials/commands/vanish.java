@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,17 +9,16 @@ import org.bukkit.entity.Player;
 
 public class vanish implements CommandExecutor {
 
-	public boolean handleVanish(Player player) {
-		String state = "";
-		if (player.isInvisible()) {
-			state = "visible";
-			player.setInvisible(false);
-		}
-		else {
-			state = "invisible";
-			player.setInvisible(true);
-		}
-		player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6You are now " + state));
+	private boolean handleVanish(Player player, boolean state) {
+		player.setInvisible(state);
+		player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6You are now %s", state ? "invisible" : "visible")));
+		return true;
+	}
+
+	private boolean handleVanishOther(Player player, Player target, boolean state) {
+		target.setInvisible(state);
+		target.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6You are now %s", state ? "invisible" : "visible")));
+		target.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6Invisibility %s for %s", state ? "on" : "off", target.getName())));
 		return true;
 	}
 
@@ -30,6 +30,12 @@ public class vanish implements CommandExecutor {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}
-		return handleVanish(player);
+		if (args.length < 1) return handleVanish(player, !player.isInvisible());
+		if (args[0].equals(player.getName())) return handleVanish(player, !player.isInvisible());
+		Player target = Bukkit.getPlayer(args[0]);
+		if (target != null)
+			if (target.getName().equals(args[0])) return handleVanishOther(player, target, !target.isInvulnerable());
+		player.sendMessage(ChatColor.DARK_RED + "Player not found");
+		return true;
 	}
 }
