@@ -1,13 +1,9 @@
 package me.elexation.exxentials.listeners;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.type.Leaves;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -16,9 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class fireFromBow implements Listener {
 
-	private static List<Arrow> arrows = new ArrayList<Arrow>();
+	private static List<Arrow> arrows = new ArrayList<>();
 
 	@EventHandler
 	public void onShootBow(EntityShootBowEvent e) {

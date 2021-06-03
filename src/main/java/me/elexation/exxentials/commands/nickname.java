@@ -35,7 +35,7 @@ public class nickname implements CommandExecutor, Listener {
 			return true;
 		} else if (args.length == 1) {
 			for (Player target : Bukkit.getOnlinePlayers())
-				if (target.getName().equals(args[0]) && target.getName() != player.getName())
+				if (target.getName().equals(args[0]) && !target.getName().equals(player.getName()))
 					return handleNickname(player, target, target.getName(), false);
 			String playerNick = args[0];
 			return handleNickname(player, null, playerNick, true);
@@ -44,7 +44,7 @@ public class nickname implements CommandExecutor, Listener {
 	}
 
 	private boolean handleNickname(Player player, Player target, String nick, boolean isSenderSelf) {
-		String targetUniqueId = "";
+		String targetUniqueId;
 		if (ColorConverter.fromColor(nick).length() > 10) {
 			player.sendMessage(ChatColor.DARK_RED + "Nickname must be no more than 10 characters " + ChatColor.GOLD
 					+ "(not including color codes)");
@@ -74,8 +74,8 @@ public class nickname implements CommandExecutor, Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		if (nicknameFile.getConfig().contains("players." + player.getUniqueId().toString())) {
-			String nick = nicknameFile.getConfig().getString("players." + player.getUniqueId().toString() + ".nick");
+		if (nicknameFile.getConfig().contains("players." + player.getUniqueId())) {
+			String nick = nicknameFile.getConfig().getString("players." + player.getUniqueId() + ".nick");
 			player.setDisplayName(nick);
 			player.setPlayerListName(nick);
 		}

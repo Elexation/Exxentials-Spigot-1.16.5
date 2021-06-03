@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class setspawn implements CommandExecutor {
 
-	private JavaPlugin plugin;
+	private final JavaPlugin plugin;
 
 	public setspawn(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -29,7 +29,7 @@ public class setspawn implements CommandExecutor {
 		}
 		World world = player.getWorld();
 		Location loc = player.getLocation();
-		this.plugin.getConfig().set("settings.worlds." + world.getUID().toString() + ".spawn", loc);
+		this.plugin.getConfig().set("settings.worlds." + world.getUID() + ".spawn", loc);
 		world.setSpawnLocation((int) loc.getX(), (int) loc.getY(), (int) loc.getZ());
 		this.plugin.saveConfig();
 		player.sendMessage(ChatColor.GOLD + "Spawnpoint set");

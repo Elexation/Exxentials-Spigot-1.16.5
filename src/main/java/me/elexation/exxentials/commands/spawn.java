@@ -17,8 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class spawn implements CommandExecutor, Listener {
 
-	private static ArrayList<Player> PlayerList = new ArrayList<Player>();
-	private JavaPlugin plugin;
+	private static ArrayList<Player> PlayerList = new ArrayList<>();
+	private final JavaPlugin plugin;
 
 	public spawn(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -35,7 +35,7 @@ public class spawn implements CommandExecutor, Listener {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}
-		String path = "settings.worlds." + player.getWorld().getUID().toString() + ".spawn";
+		String path = "settings.worlds." + player.getWorld().getUID() + ".spawn";
 		Location loc = plugin.getConfig().getLocation(path);
 		if (loc == null || !loc.isWorldLoaded()) {
 			player.sendMessage(ChatColor.DARK_RED + "Spawn not set");
@@ -60,7 +60,7 @@ public class spawn implements CommandExecutor, Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerRespawnEvent e) {
 		Player player = e.getPlayer();
-		String path = "settings.worlds." + player.getWorld().getUID().toString() + ".spawn";
+		String path = "settings.worlds." + player.getWorld().getUID() + ".spawn";
 		if (plugin.getConfig().getLocation(path) == null || !plugin.getConfig().getLocation(path).isWorldLoaded()) {
 			e.setRespawnLocation(player.getWorld().getSpawnLocation());
 			return;

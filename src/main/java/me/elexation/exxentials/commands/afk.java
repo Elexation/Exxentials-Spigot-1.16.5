@@ -25,9 +25,9 @@ import net.md_5.bungee.api.ChatColor;
 
 public class afk implements CommandExecutor, Listener {
 
-	private static List<String> afkList = new ArrayList<String>();
-	private static Map<String, Location> previousLocations = new HashMap<String, Location>();
-	private static Map<String, Long> playerTimers = new HashMap<String, Long>();
+	private static List<String> afkList = new ArrayList<>();
+	private static Map<String, Location> previousLocations = new HashMap<>();
+	private static Map<String, Long> playerTimers = new HashMap<>();
 
 	public void run(JavaPlugin plugin) {
 		new BukkitRunnable() {
@@ -73,17 +73,7 @@ public class afk implements CommandExecutor, Listener {
 			player.sendMessage(ChatColor.RED + "You do not have permission to use this command");
 			return true;
 		}
-		if (afkList.contains(player.getName())) {
-			afkList.remove(player.getName());
-			playerTimers.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (p.getName().equals(player.getName()))
-					p.sendMessage(ChatColor.GRAY + "you are no longer afk");
-				else
-					p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
-			}
-			return true;
-		} else {
+		if (!afkList.contains(player.getName())) {
 			afkList.add(player.getName());
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (p.getName().equals(player.getName()))
@@ -93,6 +83,15 @@ public class afk implements CommandExecutor, Listener {
 			}
 			return true;
 		}
+		afkList.remove(player.getName());
+		playerTimers.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equals(player.getName()))
+				p.sendMessage(ChatColor.GRAY + "you are no longer afk");
+			else
+				p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
+		}
+		return true;
 	}
 
 	@EventHandler
@@ -107,14 +106,13 @@ public class afk implements CommandExecutor, Listener {
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
-		if (afkList.contains(player.getName())) {
-			afkList.remove(player.getName());
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (p.getName().equals(player.getName()))
-					p.sendMessage(ChatColor.GRAY + "you are no longer afk");
-				else
-					p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
-			}
+		if (!afkList.contains(player.getName())) return;
+		afkList.remove(player.getName());
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equals(player.getName()))
+				p.sendMessage(ChatColor.GRAY + "you are no longer afk");
+			else
+				p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
 		}
 	}
 
@@ -122,14 +120,13 @@ public class afk implements CommandExecutor, Listener {
 	public void onPrePlayerCommand(PlayerCommandPreprocessEvent e) {
 		Player player = e.getPlayer();
 		playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
-		if (afkList.contains(player.getName())) {
-			afkList.remove(player.getName());
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (p.getName().equals(player.getName()))
-					p.sendMessage(ChatColor.GRAY + "you are no longer afk");
-				else
-					p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
-			}
+		if (!afkList.contains(player.getName())) return;
+		afkList.remove(player.getName());
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equals(player.getName()))
+				p.sendMessage(ChatColor.GRAY + "you are no longer afk");
+			else
+				p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
 		}
 	}
 
@@ -137,14 +134,13 @@ public class afk implements CommandExecutor, Listener {
 	public void onPrePlayerCommand(PlayerCommandSendEvent e) {
 		Player player = e.getPlayer();
 		playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
-		if (afkList.contains(player.getName())) {
-			afkList.remove(player.getName());
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (p.getName().equals(player.getName()))
-					p.sendMessage(ChatColor.GRAY + "you are no longer afk");
-				else
-					p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
-			}
+		if (!afkList.contains(player.getName())) return;
+		afkList.remove(player.getName());
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equals(player.getName()))
+				p.sendMessage(ChatColor.GRAY + "you are no longer afk");
+			else
+				p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
 		}
 	}
 

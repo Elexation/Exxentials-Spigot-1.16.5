@@ -13,7 +13,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class msg implements CommandExecutor {
 
-	private static Map<Player, Player> replyList = new HashMap<Player, Player>();
+	private static Map<Player, Player> replyList = new HashMap<>();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -62,15 +62,15 @@ public class msg implements CommandExecutor {
 	}
 
 	public String getMessage(String[] args, boolean isReply) {
-		String message = "";
+		StringBuilder message = new StringBuilder();
 		for (int i = 0; i < args.length; i++)
 			if (isReply)
-				message += args[i] + " ";
+				message.append(args[i]).append(" ");
 			else {
 				if (i > 0)
-					message += args[i] + " ";
+					message.append(args[i]).append(" ");
 			}
-		return message;
+		return message.toString();
 	}
 
 	public Map<Player, Player> getReplyList() {

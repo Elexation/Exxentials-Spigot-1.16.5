@@ -1,38 +1,33 @@
 package me.elexation.exxentials;
 
+import me.elexation.exxentials.commands.*;
+import me.elexation.exxentials.datamanagers.configSetup;
+import me.elexation.exxentials.datamanagers.nicknameConfigSetup;
+import me.elexation.exxentials.listeners.*;
+import me.elexation.exxentials.miscellaneous.dayTime;
+import me.elexation.exxentials.tabCompleters.gamemodeTabCompleter;
+import me.elexation.exxentials.tabCompleters.msgTabCompleter;
+import me.elexation.exxentials.tabCompleters.nicknameTabCompleter;
+import me.elexation.exxentials.tabCompleters.warps;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.elexation.exxentials.commands.*;
-import me.elexation.exxentials.datamanagers.*;
-import me.elexation.exxentials.listeners.*;
-import me.elexation.exxentials.miscellaneous.*;
-import me.elexation.exxentials.tabCompleters.*;
-
-import java.io.File;
-import java.net.URL;
-import java.util.*;
-
 public class Exxentials extends JavaPlugin {
 
-	private final afk afk = new afk();
-	private final msg msg = new msg();
-	private final nickname nick = new nickname();
-	private final spawn spawn = new spawn(this);
-	private final warp warp = new warp(this);
-	private final warps warps = new warps(this);
-	private final track track = new track(this);
+	private afk afk = new afk();
+	private msg msg = new msg();
+	private nickname nick = new nickname();
+	private spawn spawn = new spawn(this);
+	private warp warp = new warp(this);
+	private warps warps = new warps(this);
+	private track track = new track(this);
 
 	@Override
 	public void onEnable() {
 		System.out.println("Exxentials version 1.0 - Elexation");
-		for (Class clazz : getClassesInPackage("me.elexation")){
-			System.out.println(clazz.getName());
-		}
-		this.reloadConfig();
 
-		new nicknameConfigSetup();
-		new configSetup(this);
+		nicknameConfigSetup.setup();
+		configSetup.setup(this);
 
 		setCommandUsages("Usage: " + ChatColor.GOLD + "/<command> ");
 		setCommandExecutors();
@@ -70,95 +65,54 @@ public class Exxentials extends JavaPlugin {
 	}
 
 	public void setCommandTabCompleters() {
-		Objects.requireNonNull(this.getCommand("delwarp")).setTabCompleter(warps);
-		Objects.requireNonNull(this.getCommand("gamemode")).setTabCompleter(new gamemodeTabCompleter());
-		Objects.requireNonNull(this.getCommand("msg")).setTabCompleter(new msgTabCompleter());
-		Objects.requireNonNull(this.getCommand("nick")).setTabCompleter(new nicknameTabCompleter());
-		Objects.requireNonNull(this.getCommand("warp")).setTabCompleter(warps);
+		this.getCommand("delwarp").setTabCompleter(warps);
+		this.getCommand("gamemode").setTabCompleter(new gamemodeTabCompleter());
+		this.getCommand("msg").setTabCompleter(new msgTabCompleter());
+		this.getCommand("nick").setTabCompleter(new nicknameTabCompleter());
+		this.getCommand("warp").setTabCompleter(warps);
 	}
 
 	public void setCommandExecutors() {
-		Objects.requireNonNull(this.getCommand("afk")).setExecutor(afk);
-		Objects.requireNonNull(this.getCommand("god")).setExecutor(new god());
-		Objects.requireNonNull(this.getCommand("trackstop")).setExecutor(new trackstop(track));
-		Objects.requireNonNull(this.getCommand("butcher")).setExecutor(new butcher());
-		Objects.requireNonNull(this.getCommand("delwarp")).setExecutor(new delwarp(this));
-		Objects.requireNonNull(this.getCommand("fly")).setExecutor(new fly());
-		Objects.requireNonNull(this.getCommand("track")).setExecutor(track);
-		Objects.requireNonNull(this.getCommand("gamemode")).setExecutor(new gamemode());
-		Objects.requireNonNull(this.getCommand("gmc")).setExecutor(new gmc());
-		Objects.requireNonNull(this.getCommand("gms")).setExecutor(new gms());
-		Objects.requireNonNull(this.getCommand("heal")).setExecutor(new heal());
-		Objects.requireNonNull(this.getCommand("msg")).setExecutor(msg);
-		Objects.requireNonNull(this.getCommand("nickname")).setExecutor(nick);
-		Objects.requireNonNull(this.getCommand("reply")).setExecutor(new reply(msg));
-		Objects.requireNonNull(this.getCommand("setspawn")).setExecutor(new setspawn(this));
-		Objects.requireNonNull(this.getCommand("setwarp")).setExecutor(new setwarp(this));
-		Objects.requireNonNull(this.getCommand("spawn")).setExecutor(spawn);
-		Objects.requireNonNull(this.getCommand("vanish")).setExecutor(new vanish());
-		Objects.requireNonNull(this.getCommand("warp")).setExecutor(warp);
+		this.getCommand("afk").setExecutor(afk);
+		this.getCommand("exreload").setExecutor(new exreload(this));
+		this.getCommand("god").setExecutor(new god());
+		this.getCommand("trackstop").setExecutor(new trackstop(track));
+		this.getCommand("butcher").setExecutor(new butcher());
+		this.getCommand("delwarp").setExecutor(new delwarp(this));
+		this.getCommand("fly").setExecutor(new fly());
+		this.getCommand("track").setExecutor(track);
+		this.getCommand("gamemode").setExecutor(new gamemode());
+		this.getCommand("gmc").setExecutor(new gmc());
+		this.getCommand("gms").setExecutor(new gms());
+		this.getCommand("heal").setExecutor(new heal());
+		this.getCommand("msg").setExecutor(msg);
+		this.getCommand("nickname").setExecutor(nick);
+		this.getCommand("reply").setExecutor(new reply(msg));
+		this.getCommand("setspawn").setExecutor(new setspawn(this));
+		this.getCommand("setwarp").setExecutor(new setwarp(this));
+		this.getCommand("spawn").setExecutor(spawn);
+		this.getCommand("vanish").setExecutor(new vanish());
+		this.getCommand("warp").setExecutor(warp);
 	}
 
 	public void setCommandUsages(String format) {
-		Objects.requireNonNull(this.getCommand("afk")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("god")).setUsage(format + "[player]");
-		Objects.requireNonNull(this.getCommand("trackstop")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("track")).setUsage(format + "<player>");
-		Objects.requireNonNull(this.getCommand("butcher")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("fly")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("gamemode")).setUsage(format + "<gamemode> [player]");
-		Objects.requireNonNull(this.getCommand("gmc")).setUsage(format + "[player]");
-		Objects.requireNonNull(this.getCommand("gms")).setUsage(format + "[player]");
-		Objects.requireNonNull(this.getCommand("heal")).setUsage(format + "[player]");
-		Objects.requireNonNull(this.getCommand("msg")).setUsage(format + "<player> <message>");
-		Objects.requireNonNull(this.getCommand("nickname")).setUsage(format + "[player] <nickname>");
-		Objects.requireNonNull(this.getCommand("reply")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("setspawn")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("setwarp")).setUsage(format + "<warpName>");
-		Objects.requireNonNull(this.getCommand("spawn")).setUsage(format);
-		Objects.requireNonNull(this.getCommand("vanish")).setUsage(format + "[player]");
-		Objects.requireNonNull(this.getCommand("warp")).setUsage(format + "<warpName>");
-	}
-
-	public static Class[] getClassesInPackage(String pckgname) {
-		File directory = getPackageDirectory(pckgname);
-		if (!directory.exists()) {
-			throw new IllegalArgumentException("Could not get directory resource for package " + pckgname + ".");
-		}
-
-		return getClassesInPackage(pckgname, directory);
-	}
-
-	private static File getPackageDirectory(String pckgname) {
-		ClassLoader cld = Thread.currentThread().getContextClassLoader();
-		if (cld == null) {
-			throw new IllegalStateException("Can't get class loader.");
-		}
-
-		URL resource = cld.getResource(pckgname.replace('.', '/'));
-		if (resource == null) {
-			throw new RuntimeException("Package " + pckgname + " not found on classpath.");
-		}
-
-		return new File(resource.getFile());
-	}
-
-	private static Class[] getClassesInPackage(String pckgname, File directory) {
-		List<Class> classes = new ArrayList<Class>();
-		for (String filename : directory.list()) {
-			if (filename.endsWith(".class")) {
-				String classname = buildClassname(pckgname, filename);
-				try {
-					classes.add(Class.forName(classname));
-				} catch (ClassNotFoundException e) {
-					System.err.println("Error creating class " + classname);
-				}
-			}
-		}
-		return classes.toArray(new Class[classes.size()]);
-	}
-
-	private static String buildClassname(String pckgname, String filename) {
-		return pckgname + '.' + filename.replace(".class", "");
+		this.getCommand("afk").setUsage(format);
+		this.getCommand("god").setUsage(format + "[player]");
+		this.getCommand("trackstop").setUsage(format);
+		this.getCommand("track").setUsage(format + "<player>");
+		this.getCommand("butcher").setUsage(format);
+		this.getCommand("fly").setUsage(format);
+		this.getCommand("gamemode").setUsage(format + "<gamemode> [player]");
+		this.getCommand("gmc").setUsage(format + "[player]");
+		this.getCommand("gms").setUsage(format + "[player]");
+		this.getCommand("heal").setUsage(format + "[player]");
+		this.getCommand("msg").setUsage(format + "<player> <message>");
+		this.getCommand("nickname").setUsage(format + "[player] <nickname>");
+		this.getCommand("reply").setUsage(format);
+		this.getCommand("setspawn").setUsage(format);
+		this.getCommand("setwarp").setUsage(format + "<warpName>");
+		this.getCommand("spawn").setUsage(format);
+		this.getCommand("vanish").setUsage(format + "[player]");
+		this.getCommand("warp").setUsage(format + "<warpName>");
 	}
 }

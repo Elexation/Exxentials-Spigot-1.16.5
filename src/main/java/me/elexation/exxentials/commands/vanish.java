@@ -18,7 +18,7 @@ public class vanish implements CommandExecutor {
 	private boolean handleVanishOther(Player player, Player target, boolean state) {
 		target.setInvisible(state);
 		target.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6You are now %s", state ? "invisible" : "visible")));
-		target.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6Invisibility %s for %s", state ? "on" : "off", target.getName())));
+		player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6Vanish %s for %s", state ? "on" : "off", target.getName())));
 		return true;
 	}
 

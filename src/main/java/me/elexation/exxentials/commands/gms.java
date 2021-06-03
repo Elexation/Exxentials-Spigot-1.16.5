@@ -39,14 +39,13 @@ public class gms implements CommandExecutor {
 				}
 			}
 			player.sendMessage(ChatColor.DARK_RED + "Could not find player");
-			return true;
 		} else {
 			if (player.getGameMode().equals(GameMode.SURVIVAL))
 				return true;
 			player.sendMessage(ChatColor.DARK_GRAY + "Gamemode set to survival");
 			player.setGameMode(GameMode.SURVIVAL);
-			return true;
 		}
+		return true;
 	}
 
 }

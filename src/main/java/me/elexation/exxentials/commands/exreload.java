@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.datamanagers.nicknameFile;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,7 @@ public class exreload implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)){
             plugin.reloadConfig();
+            nicknameFile.reload();
             sender.sendMessage(ChatColor.GREEN + "Exxentials reloaded");
             return true;
         }
@@ -29,6 +31,7 @@ public class exreload implements CommandExecutor {
             return true;
         }
         plugin.reloadConfig();
+        nicknameFile.reload();
         player.sendMessage(ChatColor.GREEN + "Exxentials reloaded");
         return true;
     }

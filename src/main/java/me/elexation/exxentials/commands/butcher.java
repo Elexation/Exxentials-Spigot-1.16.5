@@ -25,8 +25,7 @@ public class butcher implements CommandExecutor {
 		World world = player.getWorld();
 		List<LivingEntity> entities = world.getLivingEntities();
 		int counter = 0;
-		for (int i = 0; i < entities.size(); i++) {
-			LivingEntity entity = entities.get(i);
+		for (LivingEntity entity : entities) {
 			if (entity instanceof Monster) {
 				counter++;
 				entity.remove();

@@ -9,7 +9,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class reply implements CommandExecutor {
 
-	private msg msgCommand;
+	private final msg msgCommand;
 
 	public reply(msg msg) {
 		this.msgCommand = msg;

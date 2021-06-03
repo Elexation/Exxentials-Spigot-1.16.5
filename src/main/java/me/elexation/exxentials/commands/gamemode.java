@@ -15,7 +15,7 @@ import net.md_5.bungee.api.ChatColor;
 public class gamemode implements CommandExecutor {
 
 	private static List<String> possibleArguments = Arrays
-			.asList(new String[] { "creative", "survival", "spectator", "adventure", "s", "c", "spec", "adv" });
+			.asList("creative", "survival", "spectator", "adventure", "s", "c", "spec", "adv");
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

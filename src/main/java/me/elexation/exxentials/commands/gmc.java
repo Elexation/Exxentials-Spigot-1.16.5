@@ -39,14 +39,13 @@ public class gmc implements CommandExecutor {
 				}
 			}
 			player.sendMessage(ChatColor.DARK_RED + "Could not find player");
-			return true;
 		} else {
 			if (player.getGameMode().equals(GameMode.CREATIVE))
 				return true;
 			player.sendMessage(ChatColor.DARK_GRAY + "Gamemode set to creative");
 			player.setGameMode(GameMode.CREATIVE);
-			return true;
 		}
+		return true;
 	}
 
 }

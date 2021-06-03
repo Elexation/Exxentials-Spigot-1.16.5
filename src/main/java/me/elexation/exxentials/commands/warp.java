@@ -18,7 +18,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class warp implements CommandExecutor, Listener {
 
-	private static ArrayList<Player> PlayerList = new ArrayList<Player>();
+	private static ArrayList<Player> PlayerList = new ArrayList<>();
 	private final JavaPlugin plugin;
 
 	public warp(JavaPlugin plugin) {
@@ -36,9 +36,9 @@ public class warp implements CommandExecutor, Listener {
 		}
 		if (args.length < 1)
 			return false;
-		String warpLocationPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpLocations."
+		String warpLocationPath = "settings.worlds." + player.getWorld().getUID() + ".warpLocations."
 				+ args[0];
-		String warpNamesPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpNames";
+		String warpNamesPath = "settings.worlds." + player.getWorld().getUID() + ".warpNames";
 		Location loc = plugin.getConfig().getLocation(warpLocationPath);
 		List<String> warpNames = plugin.getConfig().getStringList(warpNamesPath);
 		if (loc == null || !loc.isWorldLoaded() || !warpNames.contains(args[0])) {

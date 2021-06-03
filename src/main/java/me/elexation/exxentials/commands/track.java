@@ -5,32 +5,24 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.swing.text.html.HTML;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class track implements CommandExecutor, Listener {
 
     private final JavaPlugin plugin;
-    private static Map<Player, Player> trackedPlayers = new HashMap<Player, Player>();
-    private static Map<Player, BukkitRunnable> playerRunables = new HashMap<Player, BukkitRunnable>();
+    private static Map<Player, Player> trackedPlayers = new HashMap<>();
+    private static Map<Player, BukkitRunnable> playerRunables = new HashMap<>();
 
     public track(JavaPlugin plugin){
         this.plugin = plugin;

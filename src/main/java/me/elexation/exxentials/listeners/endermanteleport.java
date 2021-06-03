@@ -18,7 +18,8 @@ public class endermanteleport implements Listener {
 
 	@EventHandler
 	public void onArrowHit(ProjectileHitEvent event) {
-		if (event.getEntity().getType() == EntityType.ARROW)
+		if (event.getEntity().getType() == EntityType.ARROW) {
+			event.getHitEntity().getType();
 			if (event.getHitEntity().getType() == EntityType.ENDERMAN) {
 				if (event.getEntity().getShooter() instanceof LivingEntity) {
 					LivingEntity shooter = (LivingEntity) event.getEntity().getShooter();
@@ -29,5 +30,6 @@ public class endermanteleport implements Listener {
 					enderman.setTarget(shooter);
 				}
 			}
+		}
 	}
 }

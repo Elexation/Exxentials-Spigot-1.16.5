@@ -1,8 +1,6 @@
 package me.elexation.exxentials.commands;
 
-import java.util.Arrays;
-import java.util.List;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.Collections;
+import java.util.List;
 
 public class delwarp implements CommandExecutor {
 
@@ -31,9 +30,9 @@ public class delwarp implements CommandExecutor {
 		}
 		if (args.length < 1)
 			return false;
-		String warpLocationPath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpLocations."
+		String warpLocationPath = "settings.worlds." + player.getWorld().getUID() + ".warpLocations."
 				+ args[0];
-		String warpNamePath = "settings.worlds." + player.getWorld().getUID().toString() + ".warpNames";
+		String warpNamePath = "settings.worlds." + player.getWorld().getUID() + ".warpNames";
 		Location loc = plugin.getConfig().getLocation(warpLocationPath);
 		List<String> warpNames = plugin.getConfig().getStringList(warpNamePath);
 		if (loc == null || !loc.isWorldLoaded() || !warpNames.contains(args[0])) {
@@ -42,7 +41,7 @@ public class delwarp implements CommandExecutor {
 			player.sendMessage(ChatColor.DARK_RED + "Warp does not exist");
 			return true;
 		}
-		warpNames.removeAll(Arrays.asList(args[0]));
+		warpNames.removeAll(Collections.singletonList(args[0]));
 		plugin.getConfig().set(warpLocationPath, null);
 		plugin.getConfig().set(warpNamePath, warpNames);
 		plugin.saveConfig();

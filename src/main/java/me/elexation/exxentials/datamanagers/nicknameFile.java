@@ -2,6 +2,7 @@ package me.elexation.exxentials.datamanagers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -14,13 +15,13 @@ public class nicknameFile {
 	private static FileConfiguration nicknamesFile;
 
 	public static void setup() {
-		file = new File(Bukkit.getServer().getPluginManager().getPlugin("Exxentials").getDataFolder(), "nicknames.yml");
+		file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getDataFolder(), "nicknames.yml");
 
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				Bukkit.getServer().getPluginManager().getPlugin("Exxentials").getLogger().log(Level.SEVERE,
+				Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
 						"Failed to create nicknames.yml");
 			}
 		}
@@ -35,7 +36,7 @@ public class nicknameFile {
 		try {
 			nicknamesFile.save(file);
 		} catch (IOException e) {
-			Bukkit.getServer().getPluginManager().getPlugin("Exxentials").getLogger().log(Level.SEVERE,
+			Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Exxentials")).getLogger().log(Level.SEVERE,
 					"Failed save to nicknames.yml");
 		}
 	}
