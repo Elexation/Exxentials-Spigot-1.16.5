@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class warp implements CommandExecutor, Listener {
 
@@ -65,7 +66,7 @@ public class warp implements CommandExecutor, Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if (e.getFrom().getX() != e.getTo().getX() && e.getFrom().getZ() != e.getTo().getZ())
+        if (e.getFrom().getX() != Objects.requireNonNull(e.getTo()).getX() && e.getFrom().getZ() != e.getTo().getZ())
             if (PlayerList.contains(player)) {
                 PlayerList.remove(player);
                 player.sendMessage(ChatColor.DARK_RED + "Warp teleportation canceled");

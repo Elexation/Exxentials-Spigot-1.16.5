@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import java.util.Objects;
+
 public class endermanteleport implements Listener {
     @EventHandler
     public void onTeleport(EntityTeleportEvent event) {
@@ -19,7 +21,7 @@ public class endermanteleport implements Listener {
     @EventHandler
     public void onArrowHit(ProjectileHitEvent event) {
         if (event.getEntity().getType() == EntityType.ARROW) {
-            event.getHitEntity().getType();
+            Objects.requireNonNull(event.getHitEntity()).getType();
             if (event.getHitEntity().getType() == EntityType.ENDERMAN) {
                 if (event.getEntity().getShooter() instanceof LivingEntity) {
                     LivingEntity shooter = (LivingEntity) event.getEntity().getShooter();

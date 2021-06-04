@@ -32,6 +32,7 @@ public class sandFall implements Listener {
             creeper.eject();
             event.setCancelled(true);
             World world = event.getLocation().getWorld();
+            assert world != null;
             world.spawnEntity(event.getLocation(), EntityType.CREEPER);
         }
     }

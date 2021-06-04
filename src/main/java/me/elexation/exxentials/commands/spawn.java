@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class spawn implements CommandExecutor, Listener {
 
@@ -61,17 +62,17 @@ public class spawn implements CommandExecutor, Listener {
     public void onPlayerDeath(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
         String path = "settings.worlds." + player.getWorld().getUID() + ".spawn";
-        if (plugin.getConfig().getLocation(path) == null || !plugin.getConfig().getLocation(path).isWorldLoaded()) {
+        if (plugin.getConfig().getLocation(path) == null || !Objects.requireNonNull(plugin.getConfig().getLocation(path)).isWorldLoaded()) {
             e.setRespawnLocation(player.getWorld().getSpawnLocation());
             return;
         }
-        e.setRespawnLocation(plugin.getConfig().getLocation(path));
+        e.setRespawnLocation(Objects.requireNonNull(plugin.getConfig().getLocation(path)));
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if (e.getFrom().getX() != e.getTo().getX() && e.getFrom().getZ() != e.getTo().getZ())
+        if (e.getFrom().getX() != Objects.requireNonNull(e.getTo()).getX() && e.getFrom().getZ() != e.getTo().getZ())
             if (PlayerList.contains(player)) {
                 PlayerList.remove(player);
                 player.sendMessage(ChatColor.DARK_RED + "Spawn teleportation canceled");

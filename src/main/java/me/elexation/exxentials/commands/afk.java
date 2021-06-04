@@ -13,10 +13,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class afk implements CommandExecutor, Listener {
 
@@ -142,7 +139,7 @@ public class afk implements CommandExecutor, Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (event.getFrom().getZ() != event.getTo().getZ() && event.getFrom().getX() != event.getTo().getX())
+        if (event.getFrom().getZ() != Objects.requireNonNull(event.getTo()).getZ() && event.getFrom().getX() != event.getTo().getX())
             if (afkList.contains(player.getName())) {
                 afkList.remove(player.getName());
                 for (Player p : Bukkit.getOnlinePlayers()) {

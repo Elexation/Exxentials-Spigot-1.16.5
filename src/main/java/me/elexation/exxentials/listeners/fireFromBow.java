@@ -14,6 +14,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class fireFromBow implements Listener {
 
@@ -22,7 +23,7 @@ public class fireFromBow implements Listener {
     @EventHandler
     public void onShootBow(EntityShootBowEvent e) {
         if (e.getProjectile() instanceof Arrow)
-            if (e.getBow().containsEnchantment(Enchantment.ARROW_FIRE))
+            if (Objects.requireNonNull(e.getBow()).containsEnchantment(Enchantment.ARROW_FIRE))
                 arrows.add((Arrow) e.getProjectile());
 
     }

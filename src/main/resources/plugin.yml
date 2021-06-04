@@ -45,6 +45,8 @@ permissions:
 
 commands:
   Exreload:
+    aliases:
+      - exrl
     description: Reloads Exxentials
   God:
     description: God mode

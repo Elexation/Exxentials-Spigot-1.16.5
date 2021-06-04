@@ -57,6 +57,7 @@ public class track implements CommandExecutor, Listener {
             compass = player.getInventory().getItemInMainHand();
         else compass = player.getInventory().getItemInOffHand();
         CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
+        assert compassMeta != null;
         compassMeta.setLodestoneTracked(false);
         compassMeta.setDisplayName(ChatColor.GOLD + "Tracking: " + ChatColor.GREEN + target.getName());
         compass.setItemMeta(compassMeta);
@@ -69,12 +70,13 @@ public class track implements CommandExecutor, Listener {
                     playerRunables.remove(player);
                     return;
                 }
-                if (!player.getInventory().contains(Material.COMPASS) || !trackedPlayers.get(player).isOnline()) {
-                    player.sendMessage(ChatColor.GOLD + "Tracking stopped");
-                    trackedPlayers.remove(player);
-                    playerRunables.remove(player);
-                    this.cancel();
-                }
+                if (!player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS))
+                    if (!player.getInventory().contains(Material.COMPASS) || !trackedPlayers.get(player).isOnline()){
+                        player.sendMessage(ChatColor.GOLD + "Tracking stopped");
+                        trackedPlayers.remove(player);
+                        playerRunables.remove(player);
+                        this.cancel();
+                    }
                 ItemStack compass;
                 if (player.getInventory().getItemInMainHand().getType().equals(Material.COMPASS)
                         || player.getInventory().getItemInOffHand().getType().equals(Material.COMPASS)) {
@@ -83,6 +85,7 @@ public class track implements CommandExecutor, Listener {
                     else compass = player.getInventory().getItemInOffHand();
                     Player target = trackedPlayers.get(player);
                     CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
+                    assert compassMeta != null;
                     compassMeta.setLodestone(target.getLocation());
                     compass.setItemMeta(compassMeta);
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR,

@@ -58,8 +58,7 @@ public class Exxentials extends JavaPlugin {
         if (getConfig().getBoolean("settings.HealthActionBar"))
             this.getServer().getPluginManager().registerEvents(new EntityHealthActionBar(), this);
         this.getServer().getPluginManager().registerEvents(new fireFromBow(), this);
-        // this.getServer().getPluginManager().registerEvents(new endermanteleport(),
-        // this);
+        // this.getServer().getPluginManager().registerEvents(new endermanteleport(), this);
         // this.getServer().getPluginManager().registerEvents(new sandFall(), this);
     }
 
