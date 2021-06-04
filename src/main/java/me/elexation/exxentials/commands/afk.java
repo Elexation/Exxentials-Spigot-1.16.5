@@ -32,7 +32,6 @@ public class afk implements CommandExecutor, Listener {
             public void run() {
                 if (!isRunnableOn) return;
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage("s");
                     Location previousLocation = player.getLocation();
                     if (previousLocations.containsKey(player.getName()))
                         previousLocation = previousLocations.get(player.getName());
