@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -19,14 +18,21 @@ public class afk implements CommandExecutor, Listener {
 
     private final static List<String> afkList = new ArrayList<>();
     private final static Map<String, Location> previousLocations = new HashMap<>();
-    private final static Map<String, Long> playerTimers = new HashMap<>();
+    private final static Map<String, Long> playerTimes = new HashMap<>();
+    private boolean isRunnableOn = true;
+    private BukkitRunnable afkTimer = setup();
 
-    public void run(JavaPlugin plugin) {
-        new BukkitRunnable() {
+    public void setIsRunnableOn(boolean isRunnableOn){
+        this.isRunnableOn = isRunnableOn;
+    }
 
+    private BukkitRunnable setup(){
+        return new BukkitRunnable() {
             @Override
             public void run() {
+                if (!isRunnableOn) return;
                 for (Player player : Bukkit.getOnlinePlayers()) {
+                    player.sendMessage("s");
                     Location previousLocation = player.getLocation();
                     if (previousLocations.containsKey(player.getName()))
                         previousLocation = previousLocations.get(player.getName());
@@ -34,11 +40,11 @@ public class afk implements CommandExecutor, Listener {
                     previousLocations.put(player.getName(), currentLocation);
                     if (previousLocation.getX() != currentLocation.getX()
                             || previousLocation.getZ() != currentLocation.getZ()) {
-                        playerTimers.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
+                        playerTimes.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
                         return;
                     }
-                    if (playerTimers.containsKey(player.getName()))
-                        if ((playerTimers.get(player.getName()) < System.currentTimeMillis())
+                    if (playerTimes.containsKey(player.getName()))
+                        if ((playerTimes.get(player.getName()) < System.currentTimeMillis())
                                 && !afkList.contains(player.getName())) {
                             afkList.add(player.getName());
                             for (Player p : Bukkit.getOnlinePlayers()) {
@@ -50,10 +56,12 @@ public class afk implements CommandExecutor, Listener {
                             }
                         }
                 }
-
             }
+        };
+    }
 
-        }.runTaskTimer(plugin, 0, 20);
+    public BukkitRunnable getTask(){
+        return afkTimer;
     }
 
     @Override
@@ -76,7 +84,7 @@ public class afk implements CommandExecutor, Listener {
             return true;
         }
         afkList.remove(player.getName());
-        playerTimers.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
+        playerTimes.put(player.getName(), (System.currentTimeMillis() + (600 * 1000)));
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getName().equals(player.getName()))
                 p.sendMessage(ChatColor.GRAY + "you are no longer afk");
@@ -91,13 +99,13 @@ public class afk implements CommandExecutor, Listener {
         Player player = event.getPlayer();
         afkList.remove(player.getName());
         previousLocations.remove(player.getName());
-        playerTimers.remove(player.getName());
+        playerTimes.remove(player.getName());
     }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
+        playerTimes.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
         if (!afkList.contains(player.getName())) return;
         afkList.remove(player.getName());
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -109,23 +117,9 @@ public class afk implements CommandExecutor, Listener {
     }
 
     @EventHandler
-    public void onPrePlayerCommand(PlayerCommandPreprocessEvent e) {
+    public void onPlayerCommand(PlayerCommandSendEvent e) {
         Player player = e.getPlayer();
-        playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
-        if (!afkList.contains(player.getName())) return;
-        afkList.remove(player.getName());
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getName().equals(player.getName()))
-                p.sendMessage(ChatColor.GRAY + "you are no longer afk");
-            else
-                p.sendMessage(ChatColor.GRAY + "" + String.format("%s is no longer afk", player.getDisplayName()));
-        }
-    }
-
-    @EventHandler
-    public void onPrePlayerCommand(PlayerCommandSendEvent e) {
-        Player player = e.getPlayer();
-        playerTimers.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
+        playerTimes.put(player.getName(), System.currentTimeMillis() + (600 * 1000));
         if (!afkList.contains(player.getName())) return;
         afkList.remove(player.getName());
         for (Player p : Bukkit.getOnlinePlayers()) {

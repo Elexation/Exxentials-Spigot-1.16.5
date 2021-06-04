@@ -18,10 +18,16 @@ import java.util.TimerTask;
 public class EntityHealthActionBar implements Listener {
 
     private static final Map<LivingEntity, Timer> HealthTimerList = new HashMap<>();
+    private static boolean isOn = false;
+
+    public void setIsOn(boolean isOn){
+        this.isOn = isOn;
+    }
 
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerMove(EntityDamageByEntityEvent e) {
+        if (!isOn) return;
         if ((e.getDamager() instanceof Player || e.getDamager() instanceof Arrow)
                 && e.getEntity() instanceof LivingEntity) {
             Player player;

@@ -9,10 +9,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class JoinLeaveMessages implements Listener {
 
-    private final String JoinMessage;
-    private final String LeaveMessage;
+    private String JoinMessage;
+    private String LeaveMessage;
+    private final JavaPlugin plugin;
 
     public JoinLeaveMessages(JavaPlugin plugin) {
+        this.plugin = plugin;
+        JoinMessage = plugin.getConfig().getString("settings.JoinMessage");
+        LeaveMessage = plugin.getConfig().getString("settings.LeaveMessage");
+    }
+
+    public void reload(){
         JoinMessage = plugin.getConfig().getString("settings.JoinMessage");
         LeaveMessage = plugin.getConfig().getString("settings.LeaveMessage");
     }

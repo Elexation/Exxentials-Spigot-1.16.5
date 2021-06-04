@@ -5,8 +5,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class configSetup {
 
     public static void setup(JavaPlugin plugin) {
-        plugin.getConfig().addDefault("settings.JoinMessage", "&6[&2+&6] <player>");
-        plugin.getConfig().addDefault("settings.LeaveMessage", "&6[&4-&6] <player>");
         plugin.getConfig().options().copyDefaults(true);
         saveDefaultConfig(plugin);
         if (!plugin.getConfig().getBoolean("settings.HealthActionBar"))

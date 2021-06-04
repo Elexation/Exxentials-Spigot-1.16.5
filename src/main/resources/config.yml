@@ -1,6 +1,7 @@
 settings:
   HealthActionBar: false
   AfkTimer: true
+  ChatFormat: '<player> &6&l>> &r<message>'
   JoinMessage: '&6[&2+&6] <player>'
   LeaveMessage: '&6[&4-&6] <player>'
   worlds:

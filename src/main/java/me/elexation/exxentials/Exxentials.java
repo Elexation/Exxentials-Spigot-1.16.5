@@ -14,7 +14,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Exxentials extends JavaPlugin {
 
+    private final JoinLeaveMessages messages = new JoinLeaveMessages(this);
+    private final colorCodedChat chat = new colorCodedChat(this);
     private final afk afk = new afk();
+    private final EntityHealthActionBar HealthActionBar = new EntityHealthActionBar();
     private final msg msg = new msg();
     private final nickname nick = new nickname();
     private final spawn spawn = new spawn(this);
@@ -42,21 +45,21 @@ public class Exxentials extends JavaPlugin {
     }
 
     public void startSchedules() {
-        if (getConfig().getBoolean("settings.AfkTimer"))
-            afk.run(this);
+        afk.setIsRunnableOn(this.getConfig().getBoolean("settings.AfkTimer"));
+        afk.getTask().runTaskTimer(this, 0, 400);
         new dayTime().runTaskTimer(this, 0, 400);
     }
 
     public void registerListeners() {
-        this.getServer().getPluginManager().registerEvents(new colorCodedChat(), this);
+        this.getServer().getPluginManager().registerEvents(chat, this);
         this.getServer().getPluginManager().registerEvents(afk, this);
-        this.getServer().getPluginManager().registerEvents(new JoinLeaveMessages(this), this);
+        this.getServer().getPluginManager().registerEvents(messages, this);
         this.getServer().getPluginManager().registerEvents(nick, this);
         this.getServer().getPluginManager().registerEvents(new sunnyDay(), this);
         this.getServer().getPluginManager().registerEvents(spawn, this);
         this.getServer().getPluginManager().registerEvents(warp, this);
-        if (getConfig().getBoolean("settings.HealthActionBar"))
-            this.getServer().getPluginManager().registerEvents(new EntityHealthActionBar(), this);
+        this.getServer().getPluginManager().registerEvents(HealthActionBar, this);
+        HealthActionBar.setIsOn(getConfig().getBoolean("settings.HealthActionBar"));
         this.getServer().getPluginManager().registerEvents(new fireFromBow(), this);
         // this.getServer().getPluginManager().registerEvents(new endermanteleport(), this);
         // this.getServer().getPluginManager().registerEvents(new sandFall(), this);
@@ -72,7 +75,7 @@ public class Exxentials extends JavaPlugin {
 
     public void setCommandExecutors() {
         this.getCommand("afk").setExecutor(afk);
-        this.getCommand("exreload").setExecutor(new exreload(this));
+        this.getCommand("exreload").setExecutor(new exreload(this, messages, chat, afk, HealthActionBar));
         this.getCommand("god").setExecutor(new god());
         this.getCommand("trackstop").setExecutor(new trackstop(track));
         this.getCommand("butcher").setExecutor(new butcher());
