@@ -1,32 +1,30 @@
 package me.elexation.exxentials;
 
 import me.elexation.exxentials.commands.*;
-import me.elexation.exxentials.datamanagers.configSetup;
-import me.elexation.exxentials.datamanagers.nicknameConfigSetup;
+import me.elexation.exxentials.datamanagers.*;
 import me.elexation.exxentials.listeners.*;
-import me.elexation.exxentials.miscellaneous.dayTime;
-import me.elexation.exxentials.tabCompleters.gamemodeTabCompleter;
-import me.elexation.exxentials.tabCompleters.msgTabCompleter;
-import me.elexation.exxentials.tabCompleters.nicknameTabCompleter;
-import me.elexation.exxentials.tabCompleters.warps;
+import me.elexation.exxentials.miscellaneous.*;
+import me.elexation.exxentials.tabCompleters.*;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Exxentials extends JavaPlugin {
 
-    private final JoinLeaveMessages messages = new JoinLeaveMessages(this);
-    private final colorCodedChat chat = new colorCodedChat(this);
-    private final afk afk = new afk();
-    private final EntityHealthActionBar HealthActionBar = new EntityHealthActionBar();
-    private final msg msg = new msg();
-    private final nickname nick = new nickname();
-    private final spawn spawn = new spawn(this);
-    private final warp warp = new warp(this);
-    private final warps warps = new warps(this);
-    private final track track = new track(this);
+    public static Exxentials plugin;
+    private JoinLeaveMessages messages;
+    private colorCodedChat chat;
+    private afk afk;
+    private EntityHealthActionBar HealthActionBar;
+    private msg msg;
+    private nickname nick;
+    private spawn spawn;
+    private warp warp;
+    private warps warps;
+    private track track;
 
     @Override
     public void onEnable() {
+        initializeVars();
         System.out.println("Exxentials version 1.0 - Elexation");
 
         nicknameConfigSetup.setup();
@@ -39,12 +37,21 @@ public class Exxentials extends JavaPlugin {
         startSchedules();
     }
 
-    @Override
-    public void onDisable() {
-
+    private void initializeVars(){
+        plugin = this;
+        messages = new JoinLeaveMessages();
+        chat = new colorCodedChat();
+        afk = new afk();
+        HealthActionBar = new EntityHealthActionBar();
+        msg = new msg();
+        nick = new nickname();
+        spawn = new spawn();
+        warp = new warp();
+        warps = new warps();
+        track = new track();
     }
 
-    public void startSchedules() {
+    private void startSchedules() {
         afk.setIsRunnableOn(this.getConfig().getBoolean("settings.AfkTimer"));
         afk.getTask().runTaskTimer(this, 0, 400);
         new dayTime().runTaskTimer(this, 0, 400);
@@ -75,11 +82,11 @@ public class Exxentials extends JavaPlugin {
 
     public void setCommandExecutors() {
         this.getCommand("afk").setExecutor(afk);
-        this.getCommand("exreload").setExecutor(new exreload(this, messages, chat, afk, HealthActionBar));
+        this.getCommand("exreload").setExecutor(new exreload(messages, chat, afk, HealthActionBar));
         this.getCommand("god").setExecutor(new god());
         this.getCommand("trackstop").setExecutor(new trackstop(track));
         this.getCommand("butcher").setExecutor(new butcher());
-        this.getCommand("delwarp").setExecutor(new delwarp(this));
+        this.getCommand("delwarp").setExecutor(new delwarp());
         this.getCommand("fly").setExecutor(new fly());
         this.getCommand("track").setExecutor(track);
         this.getCommand("gamemode").setExecutor(new gamemode());
@@ -89,8 +96,8 @@ public class Exxentials extends JavaPlugin {
         this.getCommand("msg").setExecutor(msg);
         this.getCommand("nickname").setExecutor(nick);
         this.getCommand("reply").setExecutor(new reply(msg));
-        this.getCommand("setspawn").setExecutor(new setspawn(this));
-        this.getCommand("setwarp").setExecutor(new setwarp(this));
+        this.getCommand("setspawn").setExecutor(new setspawn());
+        this.getCommand("setwarp").setExecutor(new setwarp());
         this.getCommand("spawn").setExecutor(spawn);
         this.getCommand("vanish").setExecutor(new vanish());
         this.getCommand("warp").setExecutor(warp);

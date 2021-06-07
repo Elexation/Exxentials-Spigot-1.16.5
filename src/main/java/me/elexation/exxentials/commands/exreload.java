@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.Exxentials;
 import me.elexation.exxentials.datamanagers.configSetup;
 import me.elexation.exxentials.datamanagers.nicknameConfigSetup;
 import me.elexation.exxentials.listeners.EntityHealthActionBar;
@@ -10,21 +11,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class exreload implements CommandExecutor {
 
-    private final JavaPlugin plugin;
     private final JoinLeaveMessages messages;
     private final colorCodedChat chat;
     private final afk afk;
     private final EntityHealthActionBar HealthActionBar;
 
-    public exreload(JavaPlugin plugin, JoinLeaveMessages messages, colorCodedChat chat, afk afk, EntityHealthActionBar HealthActionBar)  {
+    public exreload(JoinLeaveMessages messages, colorCodedChat chat, afk afk, EntityHealthActionBar HealthActionBar)  {
         this.messages = messages;
         this.chat = chat;
         this.afk = afk;
-        this.plugin = plugin;
         this.HealthActionBar = HealthActionBar;
     }
 
@@ -45,13 +43,13 @@ public class exreload implements CommandExecutor {
     }
 
     private void handleReloads(){
-        plugin.reloadConfig();
-        configSetup.setup(plugin);
+        Exxentials.plugin.reloadConfig();
+        configSetup.setup(Exxentials.plugin);
         nicknameConfigSetup.setup();
         chat.reload();
         messages.reload();
-        afk.setIsRunnableOn(plugin.getConfig().getBoolean("settings.AfkTimer"));
-        HealthActionBar.setIsOn(plugin.getConfig().getBoolean("settings.HealthActionBar"));
-        plugin.getLogger().info(ChatColor.GREEN + "[Exxentials] Reloaded! ");
+        afk.setIsRunnableOn(Exxentials.plugin.getConfig().getBoolean("settings.AfkTimer"));
+        HealthActionBar.setIsOn(Exxentials.plugin.getConfig().getBoolean("settings.HealthActionBar"));
+        Exxentials.plugin.getLogger().info(ChatColor.GREEN + "[Exxentials] Reloaded! ");
     }
 }

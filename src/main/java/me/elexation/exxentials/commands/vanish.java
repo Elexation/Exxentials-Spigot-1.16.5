@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.Exxentials;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,13 +11,27 @@ import org.bukkit.entity.Player;
 public class vanish implements CommandExecutor {
 
     private boolean handleVanish(Player player, boolean state) {
-        player.setInvisible(state);
+        if (state)
+            for (Player target : Bukkit.getOnlinePlayers())
+                target.hidePlayer(Exxentials.plugin, player);
+
+        else
+            for (Player target : Bukkit.getOnlinePlayers())
+                target.showPlayer(Exxentials.plugin, player);
+        player.setCollidable(state);
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6You are now %s", state ? "invisible" : "visible")));
         return true;
     }
 
     private boolean handleVanishOther(Player player, Player target, boolean state) {
-        target.setInvisible(state);
+        if (state)
+            for (Player other : Bukkit.getOnlinePlayers())
+                other.hidePlayer(Exxentials.plugin, target);
+
+        else
+            for (Player other : Bukkit.getOnlinePlayers())
+                other.showPlayer(Exxentials.plugin, target);
+        target.setCollidable(state);
         target.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6You are now %s", state ? "invisible" : "visible")));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6Vanish %s for %s", state ? "on" : "off", target.getName())));
         return true;

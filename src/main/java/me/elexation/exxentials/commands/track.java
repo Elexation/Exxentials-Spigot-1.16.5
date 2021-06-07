@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.Exxentials;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
@@ -22,11 +22,6 @@ public class track implements CommandExecutor, Listener {
 
     private static final Map<Player, Player> trackedPlayers = new HashMap<>();
     private static final Map<Player, BukkitRunnable> playerRunables = new HashMap<>();
-    private final JavaPlugin plugin;
-
-    public track(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -96,7 +91,7 @@ public class track implements CommandExecutor, Listener {
         };
         trackedPlayers.put(player, target);
         playerRunables.put(player, run);
-        run.runTaskTimer(plugin, 0, 200);
+        run.runTaskTimer(Exxentials.plugin, 0, 200);
         return true;
     }
 

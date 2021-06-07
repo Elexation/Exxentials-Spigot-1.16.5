@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.Exxentials;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -19,11 +19,6 @@ import java.util.Objects;
 public class warp implements CommandExecutor, Listener {
 
     private static final ArrayList<Player> PlayerList = new ArrayList<>();
-    private final JavaPlugin plugin;
-
-    public warp(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -39,11 +34,11 @@ public class warp implements CommandExecutor, Listener {
         String warpLocationPath = "settings.worlds." + player.getWorld().getUID() + ".warpLocations."
                 + args[0];
         String warpNamesPath = "settings.worlds." + player.getWorld().getUID() + ".warpNames";
-        Location loc = plugin.getConfig().getLocation(warpLocationPath);
-        List<String> warpNames = plugin.getConfig().getStringList(warpNamesPath);
+        Location loc = Exxentials.plugin.getConfig().getLocation(warpLocationPath);
+        List<String> warpNames = Exxentials.plugin.getConfig().getStringList(warpNamesPath);
         if (loc == null || !loc.isWorldLoaded() || !warpNames.contains(args[0])) {
-            plugin.getConfig().set(warpLocationPath, null);
-            plugin.saveConfig();
+            Exxentials.plugin.getConfig().set(warpLocationPath, null);
+            Exxentials.plugin.saveConfig();
             player.sendMessage(ChatColor.DARK_RED + "Warp does not exist");
             return true;
         }
@@ -59,7 +54,7 @@ public class warp implements CommandExecutor, Listener {
                     player.sendMessage(ChatColor.GOLD + "Teleported to warp " + ChatColor.DARK_RED + args[0]);
                 }
             }
-        }.runTaskLater(plugin, 100);
+        }.runTaskLater(Exxentials.plugin, 100);
         return true;
     }
 

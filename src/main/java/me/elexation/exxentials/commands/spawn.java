@@ -1,5 +1,6 @@
 package me.elexation.exxentials.commands;
 
+import me.elexation.exxentials.Exxentials;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -10,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -19,11 +19,6 @@ import java.util.Objects;
 public class spawn implements CommandExecutor, Listener {
 
     private static final ArrayList<Player> PlayerList = new ArrayList<>();
-    private final JavaPlugin plugin;
-
-    public spawn(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -37,7 +32,7 @@ public class spawn implements CommandExecutor, Listener {
             return true;
         }
         String path = "settings.worlds." + player.getWorld().getUID() + ".spawn";
-        Location loc = plugin.getConfig().getLocation(path);
+        Location loc = Exxentials.plugin.getConfig().getLocation(path);
         if (loc == null || !loc.isWorldLoaded()) {
             player.sendMessage(ChatColor.DARK_RED + "Spawn not set");
             return true;
@@ -54,7 +49,7 @@ public class spawn implements CommandExecutor, Listener {
                     player.sendMessage(ChatColor.GOLD + "Teleported to spawn");
                 }
             }
-        }.runTaskLater(plugin, 100);
+        }.runTaskLater(Exxentials.plugin, 100);
         return true;
     }
 
@@ -62,11 +57,11 @@ public class spawn implements CommandExecutor, Listener {
     public void onPlayerDeath(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
         String path = "settings.worlds." + player.getWorld().getUID() + ".spawn";
-        if (plugin.getConfig().getLocation(path) == null || !Objects.requireNonNull(plugin.getConfig().getLocation(path)).isWorldLoaded()) {
+        if (Exxentials.plugin.getConfig().getLocation(path) == null || !Objects.requireNonNull(Exxentials.plugin.getConfig().getLocation(path)).isWorldLoaded()) {
             e.setRespawnLocation(player.getWorld().getSpawnLocation());
             return;
         }
-        e.setRespawnLocation(Objects.requireNonNull(plugin.getConfig().getLocation(path)));
+        e.setRespawnLocation(Objects.requireNonNull(Exxentials.plugin.getConfig().getLocation(path)));
     }
 
     @EventHandler
