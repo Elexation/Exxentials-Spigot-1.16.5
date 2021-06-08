@@ -46,6 +46,8 @@ permissions:
     default: op
 
 commands:
+  Speed:
+    description: Sets fly/walk speed of player
   Sudo:
     description: Force a player to perform a command
   Exreload:
