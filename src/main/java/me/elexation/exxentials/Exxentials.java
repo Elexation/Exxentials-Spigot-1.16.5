@@ -81,6 +81,7 @@ public class Exxentials extends JavaPlugin {
     }
 
     public void setCommandExecutors() {
+        this.getCommand("sudo").setExecutor(new sudo());
         this.getCommand("afk").setExecutor(afk);
         this.getCommand("exreload").setExecutor(new exreload(messages, chat, afk, HealthActionBar));
         this.getCommand("god").setExecutor(new god());
@@ -105,6 +106,7 @@ public class Exxentials extends JavaPlugin {
 
     public void setCommandUsages(String format) {
         this.getCommand("afk").setUsage(format);
+        this.getCommand("sudo").setUsage(format + "<player> <commandLine>");
         this.getCommand("god").setUsage(format + "[player]");
         this.getCommand("trackstop").setUsage(format);
         this.getCommand("track").setUsage(format + "<player>");

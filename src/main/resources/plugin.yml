@@ -42,8 +42,12 @@ permissions:
     default: op
   exxentials.reload:
     default: op
+  exxentials.sudo:
+    default: op
 
 commands:
+  Sudo:
+    description: Force a player to perform a command
   Exreload:
     aliases:
       - exrl
